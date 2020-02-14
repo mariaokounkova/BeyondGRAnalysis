@@ -1,12 +1,6 @@
 Using and Generating Beyond-GR waveforms 
 
-All of the instructions below will correspond to the directory
-
-/home/maria.okounkova/BeyondGR
-
-on CIT
-
-All dynamical Chern-Simons gravity waveforms are in 
+All example dynamical Chern-Simons gravity waveforms are on CIT in 
 
 /home/maria.okounkova/BeyondGR/Waveforms/dCS_*
 
