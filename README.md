@@ -2,7 +2,7 @@ Using and Generating Beyond-GR waveforms
 
 All example dynamical Chern-Simons gravity waveforms are on CIT in 
 
-/home/maria.okounkova/BeyondGR/Waveforms/dCS_*
+/home/maria.okounkova/BeyondGRAnalysis/Waveforms/dCS_*
 
 where the * corresponds to the value of the dCS coupling constant, 
 with '.' replaced by 'p' (so dCS_0p1 corresponds to dCS_0.1). Note that
