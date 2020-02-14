@@ -57,6 +57,9 @@ This will generate a directory
 
 Waveforms/dCS_* with both the SXS format and LVC format waveforms. 
 
+Note that all of the dependencies, such as romspline, can be 
+installed with pip3
+
 ----------------------------------------------
 
 (4) If you want frames files, these are in each waveform directory as
@@ -84,6 +87,12 @@ on how to generate this)
 Note that this will also create a Bayeswave .ini file
 and Bayeswave condor submission script
 
+Note that you will need to source a version of pycbc in 
+order to do this. On CIT I've been sourcing Katerina's 
+version as
+
+source /home/katerina.chatziioannou/src/pycbc/bin/activate
+
 ----------------------------------------------
 
 (6) If you want to run Bayeswave, the ini file is in each
@@ -97,6 +106,15 @@ and ** is the SNR
 The corresponding script to submit a condor job to run Bayeswave is
 
 Waveforms/dCS_*/run_bw_dCS_*_SNR_**.sh
+
+Note that you will need to source a version of Bayeswave and specify
+the environment to do this in the .ini file
+
+On CIT, you can source mine with 
+
+source /home/maria.okounkova/opt/lscsoft/bayeswave/etc/bayeswave-user-env.sh
+
+Note that all of the *.ini files also point to my Bayeswave copy
 
 ----------------------------------------------
 
