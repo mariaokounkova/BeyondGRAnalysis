@@ -41,8 +41,8 @@ END_TIME=$(echo "${TIME} + 10" | bc -l)
 echo ${PSDs}/aLIGOZeroDetHighPower-PSD.txt
 #echo ${PSDs}/aligo_O2_psd.dat
 
-FLOW=32.0
-SNR_FLOW=32.0
+FLOW=20.15
+SNR_FLOW=20.15
 FHIGH=1024
 
 pycbc_generate_hwinj \
