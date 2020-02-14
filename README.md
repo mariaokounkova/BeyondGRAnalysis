@@ -93,6 +93,10 @@ version as
 
 source /home/katerina.chatziioannou/src/pycbc/bin/activate
 
+Note that you will also need to modify the absolute paths
+in create_frame_file_from_NR_data.sh to point to your
+BeyondGRAnalysis directory
+
 ----------------------------------------------
 
 (6) If you want to run Bayeswave, the ini file is in each

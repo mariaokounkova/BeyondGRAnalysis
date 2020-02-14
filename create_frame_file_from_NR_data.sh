@@ -6,7 +6,7 @@ ell=`echo ${ell/./'p'}`
 
 APPROXIMANT=NR_hdf5
 DIR="dCS_"${ell}
-h5path=/home/maria.okounkova/BeyondGR/Waveforms/${DIR}/dCS_ell_${ell}.h5
+h5path=Waveforms/${DIR}/dCS_ell_${ell}.h5
 MASS1=37.386085075316785
 MASS2=30.613915574190038
 #SPIN1X=3.45812819445e-09                                                                                                                                                                #SPIN1Y=-1.30280350261e-08                                                                                                                                                               
