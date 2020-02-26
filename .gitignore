@@ -1,3 +1,5 @@
-catalog_tools/__pycache__/
 catalog_tools/convert_sxs_to_lvc.pyc
 Waveforms/dCS_*
+.ipynb_checkpoints
+*.pdf
+__pycache__

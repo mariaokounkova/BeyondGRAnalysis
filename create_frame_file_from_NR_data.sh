@@ -129,8 +129,8 @@ mv H-H1HWINJ_${NAME}.gwf Waveforms/${DIR}/H-H1HWINJ_${NAME}.gwf
 mv L-L1HWINJ_${NAME}.gwf Waveforms/${DIR}/L-L1HWINJ_${NAME}.gwf
 
 # make the cache files
-echo -e "-\t-\t-\t-\tfile://localhost/home/maria.okounkova/BeyondGR/Waveforms/${DIR}/H-H1HWINJ_${NAME}.gwf" > Waveforms/${DIR}/H-${NAME}.lcf
-echo -e "-\t-\t-\t-\tfile://localhost/home/maria.okounkova/BeyondGR/Waveforms/${DIR}/L-L1HWINJ_${NAME}.gwf" > Waveforms/${DIR}/L-${NAME}.lcf
+echo -e "-\t-\t-\t-\tfile://localhost/home/maria.okounkova/BeyondGRAnalysis/Waveforms/${DIR}/H-H1HWINJ_${NAME}.gwf" > Waveforms/${DIR}/H-${NAME}.lcf
+echo -e "-\t-\t-\t-\tfile://localhost/home/maria.okounkova/BeyondGRAnalysis/Waveforms/${DIR}/L-L1HWINJ_${NAME}.gwf" > Waveforms/${DIR}/L-${NAME}.lcf
 
 # now make the Bayeswave ini file
 cp dCS.ini Waveforms/${DIR}/${NAME}.ini

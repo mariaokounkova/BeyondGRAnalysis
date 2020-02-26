@@ -90,10 +90,10 @@ def GenerateStrainFiles(ell, only22 = False):
     """ Generates the sxs format waveform and LVC format waveform for a given
         beyond-GR simulation with coupling parameter ell. 
         
-        The file BeyondGR/Waveforms/BackgroundStrain.h5 contains the strain
+        The file BeyondGRAnalysis/Waveforms/BackgroundStrain.h5 contains the strain
         of the GR background, h_GR. 
         
-        Meanwhile the file BeyondGR/Waveforms/DeltaStrain.h5 contains the 
+        Meanwhile the file BeyondGRAnalysis/Waveforms/DeltaStrain.h5 contains the 
         leading-order modification to the beyond-GR strain, delta_h. 
         
         We first generate the sxs format total beyond-GR waveform for these
