@@ -58,16 +58,12 @@ def DeltaPsi4Factor(hPsi4, B = 0.1):
     hPsi4 = hPsi4 / B**2
     return hPsi4
 
-def ReadExtrapolatedMode(p, piece, mode, order=2, ell=None):
+def ReadExtrapolatedMode(p, piece, mode, order=2):
 	""" Given a file of extrapolated modes, read in the (mode)
 	    at a given order """
-	ell = name = str(ell).replace('.', 'p')
 	piece_dict = {"hRWZ" : "/rhOverM_Asymptotic_GeometricUnits.h5", \
-				  "DeltaStrain" : "/DeltaStrain.h5", \
-				  "BackgroundStrain" : "/BackgroundStrain.h5", \
 				  "Psi4" : "/rMPsi4_Asymptotic_GeometricUnits.h5", \
-				  "DeltaPsi4" : "/rMDeltaPsi4_Asymptotic_GeometricUnits.h5", \
-				  "dCSModified" : "/rhOverM_Asymptotic_GeometricUnits_dCS_ell_" + ell + ".h5"}
+				  "DeltaPsi4" : "/rMDeltaPsi4_Asymptotic_GeometricUnits.h5"}
 	try:
 		file = p + piece_dict[piece]
 	except: file = p + piece
@@ -115,15 +111,6 @@ def ComputeStrain(time, psi4, data_dir):
 
     strain = (strain_real + 1j*strain_imag)/ mass**2
     return strain_real_time, strain
-
-def GetStrainFromPsi4(p, mode, order=2):
-	""" Generate the background strain from background psi4 file. 
-	    Useful if instead of the background RWZ strain we want to 
-	    use the integrated psi4 in order to be consistent with how 
-	    we're computing delta strain"""
-	time, psi4 = ReadExtrapolatedMode(p, "Psi4", mode, order)
-	strain_time, strain = ComputeStrain(time, psi4, p)
-	return strain_time, strain
 
 def ComputedCSDeltaStrain(p, mode):
 	""" Given a path p to the extrapolated hPsi4, 
@@ -206,104 +193,6 @@ def OutputdCSDeltaStrain(p, only22):
 
 	return time, strain, delta_strain
 
-def ComputedCSModifiedStrain(p, mode, l):
-	""" Given a value of the dCS coupling constant l, a path 
-	    p to the extrapolated hPsi4 compute the modified gravitational wave strain """
-
-	## Read in the background
-	time, strain = ReadExtrapolatedMode(p, "BackgroundStrain", mode)
-	delta_time, delta_strain = ReadExtrapolatedMode(p, "DeltaStrain", mode)
-
-	## Now add the strain and delta strain together
-	## with the correct value of l
-	total = strain + l**4 * delta_strain
-
-	print("Computing strain for l = ", l)
-	return time, total
-
-
-def OutputdCSModifiedStrain(p, ell, only22):
-    """ Generate an h5 file with the modified strain for a 
-        given value of ell """
-
-    ## For naming the file, replace . with p because otherwise
-    ## the .h5 file can't be read by catalog scripts
-    name = str(ell).replace('.', 'p')
-    
-    OutFile = p + 'rhOverM_Asymptotic_GeometricUnits_dCS_ell_' + name + '.h5'
-    fOut = h5py.File(OutFile, 'w')
-    
-    grp = fOut.create_group("Extrapolated_N2.dir")
-    
-    l_arr = range(2, 9) if not only22 else [2]
-
-    for l in l_arr:
-    	print("Computing for l =", l)
-    	for m in range(-l, l+1) if not only22 else [2, -2]:
-
-    		mode = (l, m)
-
-    		## Compute for the given mode
-    		time, total = ComputedCSModifiedStrain(p, mode, ell)
-
-    		dataset = grp.create_dataset("Y_l"+str(l)+"_m"+str(m)+".dat", \
-				(len(time),3), dtype='f')
-
-    		dataset[:,0] = time
-    		dataset[:,1] = np.real(total)
-    		dataset[:,2] = np.imag(total)
-
-    fOut.close()
-
-def Overlap(data1, data2): 
-	""" Compute overlap between two waveforms in 
-	    a certain time window. This is done 
-	    accroding to the conventions in the SXS catalog
-	    paper, including taking the real part of the 
-	    complex mismatch """
-	def product(d1, d2):
-		return np.dot(d1, np.conj(d2))
-
-	denom = np.sqrt(product(data1, data1) * product(data2, data2))
-	numerator = product(data1, data2)
-	mismatch = 1.0 - np.real(numerator/denom)
-	return mismatch
-
-def OverlapInRegion(time1, data1, time2, data2, t_min, t_max, length=10000):
-	""" Compute the overlap between two waveforms in a certain time region, 
-	    by interpolating the data onto a time axis linearly spaced between
-	    t_min and t_max with length length """
-	time_window = np.linspace(t_min, t_max, length)
-	data1 = InterpolateTimes(time1, data1, time_window)
-	data2 = InterpolateTimes(time2, data2, time_window)
-	mismatch = Overlap(data1, data2)
-	return mismatch
-
-def ComputeMinOverlap(t_min, t_max, time1, data1, time2, data2):
-	""" Compute the overlap minimizing over time shift """
-	def f(shift):
-		## compute the overlap for this data
-		overlap = OverlapInRegion(time1 + shift, data1, time2, data2, t_min, t_max)
-		return overlap
-
-	minimum = fmin(f, x0=0)
-	return f(minimum)
-
-def ReadLVCStrainMode(p, ell, mode, order=2): 
-    """ Read in the the phase and amplitude of the strain from 
-        the LVC format file """
-    l = mode[0]
-    m = mode[1]
-    h_file = p + "dCS_ell_" + \
-                 str(ell).replace('.', 'p') + ".h5"
-    print("Reading in the LVC format strain from:", h_file)
-    f = h5py.File(h_file, 'r')
-    amp_dat = f["amp_l"+str(l)+"_m"+str(m)]
-    phase_dat = f["phase_l"+str(l)+"_m"+str(m)]
-    time = amp_dat['X']
-    amp = amp_dat['Y']
-    phase = phase_dat['X']
-    return time, amp, phase
     
 def MakeJSonFile(data_dir):
 	a = sxs.metadata.Metadata()
@@ -311,8 +200,6 @@ def MakeJSonFile(data_dir):
 
 def main():
 	p = argparse.ArgumentParser(description="Generate dCS waveform from given dCS simulation")
-	#p.add_argument("--ell", required=True, type=float,\
-	#	help="Value of dCS coupling constant")
 	p.add_argument("--waveform_dir", required=True, \
 		help="Directory containing extrapolated, snipped simulation waveforms.")
 	p.add_argument('--only22', help='Only output the 22 mode', \
