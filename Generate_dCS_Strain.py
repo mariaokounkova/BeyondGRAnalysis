@@ -15,7 +15,7 @@ def ReadExtrapolatedMode(p, piece, mode, order=2, ell=None):
 	ell = name = str(ell).replace('.', 'p')
 	piece_dict = {"DeltaStrain" : "/DeltaStrain.h5", \
 				  "BackgroundStrain" : "/BackgroundStrain.h5", \
-				  "dCSModified" : "/rhOverM_Asymptotic_GeometricUnits_dCS_ell_" + ell + ".h5"}
+				  "dCSModified" : "/dCS_" + ell + "/rhOverM_Asymptotic_GeometricUnits_dCS_ell_" + ell + ".h5"}
 	file = p + piece_dict[piece]
 	l = mode[0]
 	m = mode[1]
