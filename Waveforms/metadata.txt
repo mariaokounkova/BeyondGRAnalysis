@@ -6,7 +6,7 @@
 # Short descriptive name
 # NOTE: this name is not necessarily unique! Please use the SXS or PRIVATE
 # identifier in alternative-names to unambiguously refer to this simulation.
-simulation-name = BBH_SKS_d13_q1.22_sA_0_0_0.330_sB_0_0_-0.440/Lev2
+simulation-name = BBH_SKS_d13_q1.22_sA_0_0_0.330_sB_0_0_-0.440/Lev0
 
 # Other names under which this run has been referenced (e.g. papers)
 alternative-names = 
@@ -20,7 +20,7 @@ keywords =
 
 # Point-of-contact for this waveform.  Usually the person having placed the
 # waveform into the repository
-point-of-contact-email = m.okounkova@gmail.com
+point-of-contact-email = mokounkova@flatironinstitute.org
 
 # Researchers who contributed to the generation of this waveform.
 # (typically this is the list of authors for publications using this
@@ -80,56 +80,56 @@ initial-position2 = -7.1664176196670102,  0.0060237633603256,  0.000000002365435
 #--------------------------------
 
 # time at which the reference quantities are measured
-reference-time = 580.0
+reference-time = 460.0
 
 # Christodoulou masses at reference time
-reference-mass1    = 0.549811385916
-reference-mass2    = 0.450202517074
+reference-mass1    = 0.549793136253
+reference-mass2    = 0.450194039807
 
 # dimensionless spins, i.e. \chi_i = S_i / M_i^2, at reference time
-reference-dimensionless-spin1 = 1.86152932939e-08, 5.39867855493e-08, 0.329894028067
-reference-dimensionless-spin2 = 2.91205300005e-08, 9.12785013311e-09, -0.439941681413
+reference-dimensionless-spin1 = -3.04568573319e-08, -4.47108156225e-08, 0.329909391378
+reference-dimensionless-spin2 = -1.22445793352e-07, 1.43846432841e-07, -0.439888615693
 
 # black hole centers at reference time
-reference-position1 = 4.09820343779, -4.13328338255, -1.17930951612e-05
-reference-position2 = -5.03888759845, 5.09250710603, -1.16134685291e-05
+reference-position1 = -5.81393922252, 1.0032081841, -2.61665944181e-07
+reference-position2 = 7.1520534077, -1.23162480358, -4.34899978993e-07
 
 # orbital frequency at relaxation time
-reference-orbital-frequency = 2.25618081938e-10, -1.89281809502e-10, 0.0211982334004
+reference-orbital-frequency = 7.13052392254e-11, -1.19624482242e-09, 0.0207693055275
 
 #--------------------------------
 # info that concerns complete run
 #--------------------------------
 
 # orbital eccentricity and mean anomaly measured at reference-measurement-time
-reference-eccentricity = <3.5e-03
-reference-mean-anomaly = 2.788718
+reference-eccentricity = 0.0002713
+reference-mean-anomaly = 4.349916
 
 # time when the common horizon is first detected
-common-horizon-time  = 2529.65028896
+common-horizon-time  = 2551.0114083
 
 # number of orbits between t=0 common-horizon-time
-number-of-orbits     = 11.8327251495
+number-of-orbits     = 11.9331267373
 
 #--------------------------------
 # Remnant properties
 #--------------------------------
 
 # mass of final BH (remnant)
-remnant-mass     =  0.952626135779
+remnant-mass     =  0.951795029288
 
 # dimensionless spin of BH remnant
-remnant-dimensionless-spin = -9.2186282649e-08, 1.13847550717e-07, 0.691896642677
+remnant-dimensionless-spin = 3.2643651115e-08, -6.70049947055e-08, 0.691923283888
 
 # coordinate velocity of remnant
-remnant-velocity = -5.43427497585e-05, 0.000455937023663, 3.44702146136e-07
+remnant-velocity = -0.000289633032955, 0.000350651853145, 4.26754787535e-07
 
 #--------------------------------
 # Code information
 #--------------------------------
 
 # unique, ordered list of revisions used for the evolution
-spec-revisions  = InitialCommit-30874-gd0f65fb
+spec-revisions  = InitialCommit-30896-gf254d8b
 
 # revision used for the initial data creation
 spells-revision = 4a63ebd9117136a3022c4a8a9825fc2bd42ca8a9

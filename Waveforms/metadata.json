@@ -1,8 +1,8 @@
 {
-    "simulation_name": "BBH_SKS_d13_q1.22_sA_0_0_0.330_sB_0_0_-0.440/Lev2",
+    "simulation_name": "BBH_SKS_d13_q1.22_sA_0_0_0.330_sB_0_0_-0.440/Lev0",
     "alternative_names": [],
     "keywords": [],
-    "point_of_contact_email": "m.okounkova@gmail.com",
+    "point_of_contact_email": "mokounkova@flatironinstitute.org",
     "authors_emails": [],
     "simulation_bibtex_keys": "SXSCatalog",
     "code_bibtex_keys": [
@@ -69,49 +69,49 @@
         0.0060237633603256,
         2.3654355e-09
     ],
-    "reference_time": 580.0,
-    "reference_mass1": 0.549811385916,
-    "reference_mass2": 0.450202517074,
+    "reference_time": 460.0,
+    "reference_mass1": 0.549793136253,
+    "reference_mass2": 0.450194039807,
     "reference_dimensionless_spin1": [
-        1.86152932939e-08,
-        5.39867855493e-08,
-        0.329894028067
+        -3.04568573319e-08,
+        -4.47108156225e-08,
+        0.329909391378
     ],
     "reference_dimensionless_spin2": [
-        2.91205300005e-08,
-        9.12785013311e-09,
-        -0.439941681413
+        -1.22445793352e-07,
+        1.43846432841e-07,
+        -0.439888615693
     ],
     "reference_position1": [
-        4.09820343779,
-        -4.13328338255,
-        -1.17930951612e-05
+        -5.81393922252,
+        1.0032081841,
+        -2.61665944181e-07
     ],
     "reference_position2": [
-        -5.03888759845,
-        5.09250710603,
-        -1.16134685291e-05
+        7.1520534077,
+        -1.23162480358,
+        -4.34899978993e-07
     ],
     "reference_orbital_frequency": [
-        2.25618081938e-10,
-        -1.89281809502e-10,
-        0.0211982334004
+        7.13052392254e-11,
+        -1.19624482242e-09,
+        0.0207693055275
     ],
-    "reference_eccentricity": "<3.5e-03",
-    "reference_mean_anomaly": 2.788718,
-    "common_horizon_time": 2529.65028896,
-    "number_of_orbits": 11.8327251495,
-    "remnant_mass": 0.952626135779,
+    "reference_eccentricity": 0.0002713,
+    "reference_mean_anomaly": 4.349916,
+    "common_horizon_time": 2551.0114083,
+    "number_of_orbits": 11.9331267373,
+    "remnant_mass": 0.951795029288,
     "remnant_dimensionless_spin": [
-        -9.2186282649e-08,
-        1.13847550717e-07,
-        0.691896642677
+        3.2643651115e-08,
+        -6.70049947055e-08,
+        0.691923283888
     ],
     "remnant_velocity": [
-        -5.43427497585e-05,
-        0.000455937023663,
-        3.44702146136e-07
+        -0.000289633032955,
+        0.000350651853145,
+        4.26754787535e-07
     ],
-    "spec_revisions": "InitialCommit-30874-gd0f65fb",
+    "spec_revisions": "InitialCommit-30896-gf254d8b",
     "spells_revision": "4a63ebd9117136a3022c4a8a9825fc2bd42ca8a9"
 }
