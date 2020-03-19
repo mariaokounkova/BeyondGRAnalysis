@@ -6,7 +6,7 @@
 # Short descriptive name
 # NOTE: this name is not necessarily unique! Please use the SXS or PRIVATE
 # identifier in alternative-names to unambiguously refer to this simulation.
-simulation-name = BBH_SKS_d13_q1.22_sA_0_0_0.330_sB_0_0_-0.440/Lev0
+simulation-name = BBH_SKS_d13_q1.22_sA_0_0_0.330_sB_0_0_-0.440/Lev2
 
 # Other names under which this run has been referenced (e.g. papers)
 alternative-names = 
@@ -80,49 +80,49 @@ initial-position2 = -7.1664176196670102,  0.0060237633603256,  0.000000002365435
 #--------------------------------
 
 # time at which the reference quantities are measured
-reference-time = 460.0
+reference-time = 630.0
 
 # Christodoulou masses at reference time
-reference-mass1    = 0.549793136253
-reference-mass2    = 0.450194039807
+reference-mass1    = 0.54981178519
+reference-mass2    = 0.450202938247
 
 # dimensionless spins, i.e. \chi_i = S_i / M_i^2, at reference time
-reference-dimensionless-spin1 = -3.04568573319e-08, -4.47108156225e-08, 0.329909391378
-reference-dimensionless-spin2 = -1.22445793352e-07, 1.43846432841e-07, -0.439888615693
+reference-dimensionless-spin1 = 1.20449201045e-08, 5.85893624248e-08, 0.329892752405
+reference-dimensionless-spin2 = 2.79083468481e-08, 1.71892737322e-08, -0.439940981499
 
 # black hole centers at reference time
-reference-position1 = -5.81393922252, 1.0032081841, -2.61665944181e-07
-reference-position2 = 7.1520534077, -1.23162480358, -4.34899978993e-07
+reference-position1 = 5.56860814213, 1.58031280198, -1.28096677001e-05
+reference-position2 = -6.85482317225, -1.93255791173, -1.27133540926e-05
 
 # orbital frequency at relaxation time
-reference-orbital-frequency = 7.13052392254e-11, -1.19624482242e-09, 0.0207693055275
+reference-orbital-frequency = 2.30072449679e-10, -2.27275642261e-10, 0.0213874174281
 
 #--------------------------------
 # info that concerns complete run
 #--------------------------------
 
 # orbital eccentricity and mean anomaly measured at reference-measurement-time
-reference-eccentricity = 0.0002713
-reference-mean-anomaly = 4.349916
+reference-eccentricity = 0.0000894
+reference-mean-anomaly = 3.596559
 
 # time when the common horizon is first detected
-common-horizon-time  = 2551.0114083
+common-horizon-time  = 2547.00520838
 
 # number of orbits between t=0 common-horizon-time
-number-of-orbits     = 11.9331267373
+number-of-orbits     = 11.9180876311
 
 #--------------------------------
 # Remnant properties
 #--------------------------------
 
 # mass of final BH (remnant)
-remnant-mass     =  0.951795029288
+remnant-mass     =  0.951971474722
 
 # dimensionless spin of BH remnant
-remnant-dimensionless-spin = 3.2643651115e-08, -6.70049947055e-08, 0.691923283888
+remnant-dimensionless-spin = -3.43402537835e-09, 1.53890786282e-08, 0.692013400604
 
 # coordinate velocity of remnant
-remnant-velocity = -0.000289633032955, 0.000350651853145, 4.26754787535e-07
+remnant-velocity = -0.000265215289501, 0.000372285951286, 2.97727734204e-08
 
 #--------------------------------
 # Code information

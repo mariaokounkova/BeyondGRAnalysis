@@ -1,5 +1,5 @@
 {
-    "simulation_name": "BBH_SKS_d13_q1.22_sA_0_0_0.330_sB_0_0_-0.440/Lev0",
+    "simulation_name": "BBH_SKS_d13_q1.22_sA_0_0_0.330_sB_0_0_-0.440/Lev2",
     "alternative_names": [],
     "keywords": [],
     "point_of_contact_email": "mokounkova@flatironinstitute.org",
@@ -69,48 +69,48 @@
         0.0060237633603256,
         2.3654355e-09
     ],
-    "reference_time": 460.0,
-    "reference_mass1": 0.549793136253,
-    "reference_mass2": 0.450194039807,
+    "reference_time": 630.0,
+    "reference_mass1": 0.54981178519,
+    "reference_mass2": 0.450202938247,
     "reference_dimensionless_spin1": [
-        -3.04568573319e-08,
-        -4.47108156225e-08,
-        0.329909391378
+        1.20449201045e-08,
+        5.85893624248e-08,
+        0.329892752405
     ],
     "reference_dimensionless_spin2": [
-        -1.22445793352e-07,
-        1.43846432841e-07,
-        -0.439888615693
+        2.79083468481e-08,
+        1.71892737322e-08,
+        -0.439940981499
     ],
     "reference_position1": [
-        -5.81393922252,
-        1.0032081841,
-        -2.61665944181e-07
+        5.56860814213,
+        1.58031280198,
+        -1.28096677001e-05
     ],
     "reference_position2": [
-        7.1520534077,
-        -1.23162480358,
-        -4.34899978993e-07
+        -6.85482317225,
+        -1.93255791173,
+        -1.27133540926e-05
     ],
     "reference_orbital_frequency": [
-        7.13052392254e-11,
-        -1.19624482242e-09,
-        0.0207693055275
+        2.30072449679e-10,
+        -2.27275642261e-10,
+        0.0213874174281
     ],
-    "reference_eccentricity": 0.0002713,
-    "reference_mean_anomaly": 4.349916,
-    "common_horizon_time": 2551.0114083,
-    "number_of_orbits": 11.9331267373,
-    "remnant_mass": 0.951795029288,
+    "reference_eccentricity": 8.94e-05,
+    "reference_mean_anomaly": 3.596559,
+    "common_horizon_time": 2547.00520838,
+    "number_of_orbits": 11.9180876311,
+    "remnant_mass": 0.951971474722,
     "remnant_dimensionless_spin": [
-        3.2643651115e-08,
-        -6.70049947055e-08,
-        0.691923283888
+        -3.43402537835e-09,
+        1.53890786282e-08,
+        0.692013400604
     ],
     "remnant_velocity": [
-        -0.000289633032955,
-        0.000350651853145,
-        4.26754787535e-07
+        -0.000265215289501,
+        0.000372285951286,
+        2.97727734204e-08
     ],
     "spec_revisions": "InitialCommit-30896-gf254d8b",
     "spells_revision": "4a63ebd9117136a3022c4a8a9825fc2bd42ca8a9"
