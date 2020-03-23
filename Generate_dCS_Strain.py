@@ -10,35 +10,36 @@ import numpy as np
 import os
 
 def ReadExtrapolatedMode(p, piece, mode, order=2, ell=None):
-	""" Given a file of extrapolated modes, read in the (mode)
-	    at a given order """
-	ell = name = str(ell).replace('.', 'p')
-	piece_dict = {"DeltaStrain" : "/DeltaStrain.h5", \
-				  "BackgroundStrain" : "/BackgroundStrain.h5", \
-				  "dCSModified" : "/dCS_" + ell + "/rhOverM_Asymptotic_GeometricUnits_dCS_ell_" + ell + ".h5", \
+  """ Given a file of extrapolated modes, read in the (mode)
+      at a given order """
+  ell = name = str(ell).replace('.', 'p')
+  piece_dict = {"DeltaStrain" : "/DeltaStrain.h5", \
+          "BackgroundStrain" : "/BackgroundStrain.h5", \
+          "dCSModified" : "/dCS_" + ell + "/rhOverM_Asymptotic_GeometricUnits_dCS_ell_" + ell + ".h5", \
                   "hRWZ" : "/rhOverM_Asymptotic_GeometricUnits.h5"}
-	file = p + piece_dict[piece]
-	l = mode[0]
-	m = mode[1]
-	f = h5py.File(file, 'r')
-	data = f['Extrapolated_N'+str(order)+'.dir']['Y_l' + str(l) + '_m'  + str(m) + '.dat']
-	time, re, im = data[:,0], data[:,1], data[:,2]
-	result = re + 1j*im
-	return time, result
+  file = p + piece_dict[piece]
+  print(file)
+  l = mode[0]
+  m = mode[1]
+  f = h5py.File(file, 'r')
+  data = f['Extrapolated_N'+str(order)+'.dir']['Y_l' + str(l) + '_m'  + str(m) + '.dat']
+  time, re, im = data[:,0], data[:,1], data[:,2]
+  result = re + 1j*im
+  return time, result
 
 def ComputedCSModifiedStrain(p, mode, l):
-	""" Given a value of the dCS coupling constant l, a path 
-	    p to the extrapolated hPsi4 compute the modified gravitational wave strain """
+  """ Given a value of the dCS coupling constant l, a path 
+      p to the extrapolated hPsi4 compute the modified gravitational wave strain """
 
-	## Read in the background
-	time, strain = ReadExtrapolatedMode(p, "BackgroundStrain", mode)
-	delta_time, delta_strain = ReadExtrapolatedMode(p, "DeltaStrain", mode)
+  ## Read in the background
+  time, strain = ReadExtrapolatedMode(p, "BackgroundStrain", mode)
+  delta_time, delta_strain = ReadExtrapolatedMode(p, "DeltaStrain", mode)
 
-	## Now add the strain and delta strain together
-	## with the correct value of l
-	total = strain + l**4 * delta_strain
+  ## Now add the strain and delta strain together
+  ## with the correct value of l
+  total = strain + l**4 * delta_strain
 
-	return time, total
+  return time, total
 
 
 def OutputdCSModifiedStrain(p, ell, only22):
@@ -60,20 +61,20 @@ def OutputdCSModifiedStrain(p, ell, only22):
     l_arr = range(2, 9) if not only22 else [2]
 
     for l in l_arr:
-    	print("Computing for l = ", l)
-    	for m in range(-l, l+1) if not only22 else [2, -2]:
+      print("Computing for l = ", l)
+      for m in range(-l, l+1) if not only22 else [2, -2]:
 
-    		mode = (l, m)
+        mode = (l, m)
 
-    		## Compute for the given mode
-    		time, total = ComputedCSModifiedStrain(p, mode, ell)
+        ## Compute for the given mode
+        time, total = ComputedCSModifiedStrain(p, mode, ell)
 
-    		dataset = grp.create_dataset("Y_l"+str(l)+"_m"+str(m)+".dat", \
-				(len(time),3), dtype='f')
+        dataset = grp.create_dataset("Y_l"+str(l)+"_m"+str(m)+".dat", \
+        (len(time),3), dtype='f')
 
-    		dataset[:,0] = time
-    		dataset[:,1] = np.real(total)
-    		dataset[:,2] = np.imag(total)
+        dataset[:,0] = time
+        dataset[:,1] = np.real(total)
+        dataset[:,2] = np.imag(total)
 
     fOut.close()
     print("Wrote waveforms to file", OutFile)
@@ -136,17 +137,17 @@ def GenerateStrainFiles(ell, only22 = False):
     print("Output LVC format waveform to", out_file)
     
 def main():
-	p = argparse.ArgumentParser(description="Generate dCS waveform for a given coupling parameter value")
-	p.add_argument("--ell", required=True, type=float,\
-		help="Value of dCS coupling constant")
-	#p.add_argument("--waveform_dir", required=True, \
-	#help="Directory containing extrapolated, snipped simulation waveforms.")
-	p.add_argument('--only22', help='Only output the 22 mode', \
-		dest='only22', action='store_true')
-	p.set_defaults(only22=False)
-	args = p.parse_args()
+  p = argparse.ArgumentParser(description="Generate dCS waveform for a given coupling parameter value")
+  p.add_argument("--ell", required=True, type=float,\
+    help="Value of dCS coupling constant")
+  #p.add_argument("--waveform_dir", required=True, \
+  #help="Directory containing extrapolated, snipped simulation waveforms.")
+  p.add_argument('--only22', help='Only output the 22 mode', \
+    dest='only22', action='store_true')
+  p.set_defaults(only22=False)
+  args = p.parse_args()
 
-	GenerateStrainFiles(args.ell, args.only22)
+  GenerateStrainFiles(args.ell, args.only22)
 
 if __name__ == "__main__":
   main()
