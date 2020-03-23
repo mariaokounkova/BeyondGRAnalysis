@@ -23,9 +23,6 @@ NAME="dCS_"${ell}"_SNR_"${SNR}
 
 
 PSDs=PSDs/design
-#PSDs=PSDs/O2
-#OUTDIR=./
-#mkdir -p ${OUTDIR}
 
 # Look up end_time or just 'time' and set 
 # geocentric-end-time = 'time'
@@ -36,10 +33,6 @@ PSDs=PSDs/design
 TIME=1197495364
 START_TIME=$(echo "${TIME} - 10" | bc -l)
 END_TIME=$(echo "${TIME} + 10" | bc -l)
-#HWINJ_START_TIME=$(echo "${TIME} - 6" | bc -l) # This is just a guess and doesn't necessarily agree with  the time that pycbc_generate_hwinj spits out; we get the correct time below
-
-echo ${PSDs}/aLIGOZeroDetHighPower-PSD.txt
-#echo ${PSDs}/aligo_O2_psd.dat
 
 FLOW=21
 SNR_FLOW=21
@@ -67,7 +60,7 @@ pycbc_generate_hwinj \
     --channel-name H1:GDS-CALIB_STRAIN L1:GDS-CALIB_STRAIN \
     --taper TAPER_START \
     --network-snr ${SNR} \
-    --psd-file H1:${PSDs}/aLIGOZeroDetHighPower-PSD.txt L1:${PSDs}/aLIGOZeroDetHighPower-PSD.txt \
+    --psd-file H1:${PSDs}/aLIGOZeroDetHighPower-PSD_21Hz.txt L1:${PSDs}/aLIGOZeroDetHighPower-PSD_21Hz.txt \
     --low-frequency-cutoff $SNR_FLOW \
     --high-frequency-cutoff $FHIGH \
     --geocentric-end-time $TIME \
