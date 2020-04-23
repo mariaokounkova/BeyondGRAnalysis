@@ -16,10 +16,9 @@ def ReadExtrapolatedMode(p, piece, mode, order=2, ell=None, lev=2):
   piece_dict = {"DeltaStrain" : "/DeltaStrain.h5", \
           "BackgroundStrain" : "/BackgroundStrain.h5", \
           "dCSModified" : "/dCS_" + ell + "/rhOverM_Asymptotic_GeometricUnits_dCS_ell_" + ell + ".h5", \
-        "dCSModifiedRes" : "/dCS_" + ell + "_Lev" + lev + "/rhOverM_Asymptotic_GeometricUnits_dCS_ell_" + ell + ".h5", \
+        "dCSModifiedRes" : "/dCS_" + ell + "_Lev" + str(lev) + "/rhOverM_Asymptotic_GeometricUnits_dCS_ell_" + ell + ".h5", \
                   "hRWZ" : "/rhOverM_Asymptotic_GeometricUnits.h5"}
   file = p + piece_dict[piece]
-  print(file)
   l = mode[0]
   m = mode[1]
   f = h5py.File(file, 'r')
