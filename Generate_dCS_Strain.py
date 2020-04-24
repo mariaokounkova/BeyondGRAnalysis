@@ -12,10 +12,10 @@ import os
 def ReadExtrapolatedMode(p, piece, mode, lev, order=2, ell=None):
   """ Given a file of extrapolated modes, read in the (mode)
       at a given order """
-  ell = name = str(ell).replace('.', 'p')
+  ell = str(ell).replace('.', 'p')
   piece_dict = {"DeltaStrain" : "Lev" + str(lev) + "/DeltaStrain.h5", \
           "BackgroundStrain" : "Lev" + str(lev) + "/BackgroundStrain.h5", \
-          "dCSModified" : "/dCS_" + ell + "_Lev" + str(lev) + "/rhOverM_Asymptotic_GeometricUnits_dCS_ell_" + ell + ".h5", \
+          "dCSModified" : "/Lev" + str(lev) + "/dCS_" + ell + "_Lev" + str(lev) + "/rhOverM_Asymptotic_GeometricUnits_dCS_ell_" + ell + ".h5", \
                   "hRWZ" : "Lev" + str(lev) + "/rhOverM_Asymptotic_GeometricUnits.h5"}
   file = p + piece_dict[piece]
   l = mode[0]
@@ -47,12 +47,15 @@ def OutputdCSModifiedStrain(p, ell, only22, lev):
 
     ## For naming the file, replace . with p because otherwise
     ## the .h5 file can't be read by catalog scripts
-    name = str(ell).replace('.', 'p') + '_Lev' + str(lev)
+    name = str(ell).replace('.', 'p')
+    name_lev = str(ell).replace('.', 'p') + '_Lev' + str(lev)
     
     ## Make the output directory
-    os.mkdir(p + 'dCS_' + name)
+    os.mkdir(p + "/Lev" + str(lev) + '/dCS_' + name_lev)
+    os.mkdir(p + '/dCS_' + name_lev)
     
-    OutFile = p + 'dCS_' + name + '/rhOverM_Asymptotic_GeometricUnits_dCS_ell_' + name + '.h5'
+    OutFile = p + "Lev" + str(lev) + '/dCS_' + name_lev + \
+      '/rhOverM_Asymptotic_GeometricUnits_dCS_ell_' + name + '.h5'
     fOut = h5py.File(OutFile, 'w')
     
     grp = fOut.create_group("Extrapolated_N2.dir")
@@ -153,12 +156,12 @@ def GenerateStrainFiles(ell, lev, only22 = False):
     ell_string = str(ell).replace('.', 'p')
 
     ## Call to generate total waveform in sxs format
-    OutputdCSModifiedStrain("Waveforms/", ell, only22)
+    OutputdCSModifiedStrain("Waveforms/", ell, only22, lev)
 
     ## Vars needed for the sxs to lvc conversion script. 
     ## values like resolution and sxs_metadata and sxs_resolutions
     ## don't really matter, but we need to specify them
-    sxs_data = "Waveforms" ## input directory
+    sxs_data = "Waveforms/Lev" + str(lev) ## input directory
     resolution = 0
     sxs_metadata = "catalog_tools/Metadata/sxs_catalog.json"
     sxs_resolutions = "catalog_tools/Metadata/sxs_catalog_resolutions.json"

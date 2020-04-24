@@ -1,6 +1,6 @@
-Waveforms/rh*
 catalog_tools/convert_sxs_to_lvc.pyc
-Waveforms/dCS_*
+Waveforms/Lev*/dCS_*/rh*
+Waveforms/dCS*
 .ipynb_checkpoints
 *.pdf
 __pycache__

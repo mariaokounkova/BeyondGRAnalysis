@@ -1,11 +1,14 @@
 ## Take in the value of ell as a command-line argument
+## SNR is the second command-line argument
+## The third command-line argument is the NR resolution of the run
 ## replace . in the string with p in order
 ## to be able to read from the .h5 files
 ell=$1
 ell=`echo ${ell/./'p'}`
+lev=$3
 
 APPROXIMANT=NR_hdf5
-DIR="dCS_"${ell}
+DIR="dCS_"${ell}"_Lev"${lev}
 h5path=Waveforms/${DIR}/dCS_ell_${ell}.h5
 MASS1=37.386085075316785
 MASS2=30.613915574190038
@@ -129,6 +132,7 @@ echo -e "-\t-\t-\t-\tfile://localhost/home/maria.okounkova/BeyondGRAnalysis/Wave
 cp dCS.ini Waveforms/${DIR}/${NAME}.ini
 sed -i "s/ELL/${ell}/g" "Waveforms/${DIR}/${NAME}.ini"
 sed -i "s/NAME/${NAME}/g" "Waveforms/${DIR}/${NAME}.ini"
+sed -i "s/LEV/${lev}/g" "Waveforms/${DIR}/${NAME}.ini"
 
 # make the Bayeswave submission script
 cp run_bw.sh Waveforms/${DIR}/run_bw_${NAME}.sh
