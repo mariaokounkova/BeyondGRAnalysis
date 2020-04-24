@@ -9,15 +9,14 @@ import h5py
 import numpy as np
 import os
 
-def ReadExtrapolatedMode(p, piece, mode, order=2, ell=None, lev=2):
+def ReadExtrapolatedMode(p, piece, mode, lev, order=2, ell=None):
   """ Given a file of extrapolated modes, read in the (mode)
       at a given order """
   ell = name = str(ell).replace('.', 'p')
-  piece_dict = {"DeltaStrain" : "/DeltaStrain.h5", \
-          "BackgroundStrain" : "/BackgroundStrain.h5", \
-          "dCSModified" : "/dCS_" + ell + "/rhOverM_Asymptotic_GeometricUnits_dCS_ell_" + ell + ".h5", \
-        "dCSModifiedRes" : "/dCS_" + ell + "_Lev" + str(lev) + "/rhOverM_Asymptotic_GeometricUnits_dCS_ell_" + ell + ".h5", \
-                  "hRWZ" : "/rhOverM_Asymptotic_GeometricUnits.h5"}
+  piece_dict = {"DeltaStrain" : "Lev" + str(lev) + "/DeltaStrain.h5", \
+          "BackgroundStrain" : "Lev" + str(lev) + "/BackgroundStrain.h5", \
+          "dCSModified" : "/dCS_" + ell + "_Lev" + str(lev) + "/rhOverM_Asymptotic_GeometricUnits_dCS_ell_" + ell + ".h5", \
+                  "hRWZ" : "Lev" + str(lev) + "/rhOverM_Asymptotic_GeometricUnits.h5"}
   file = p + piece_dict[piece]
   l = mode[0]
   m = mode[1]
@@ -27,13 +26,13 @@ def ReadExtrapolatedMode(p, piece, mode, order=2, ell=None, lev=2):
   result = re + 1j*im
   return time, result
 
-def ComputedCSModifiedStrain(p, mode, l):
+def ComputedCSModifiedStrain(p, mode, l, lev):
   """ Given a value of the dCS coupling constant l, a path 
       p to the extrapolated hPsi4 compute the modified gravitational wave strain """
 
   ## Read in the background
-  time, strain = ReadExtrapolatedMode(p, "BackgroundStrain", mode)
-  delta_time, delta_strain = ReadExtrapolatedMode(p, "DeltaStrain", mode)
+  time, strain = ReadExtrapolatedMode(p, "BackgroundStrain", mode, lev)
+  delta_time, delta_strain = ReadExtrapolatedMode(p, "DeltaStrain", mode, lev)
 
   ## Now add the strain and delta strain together
   ## with the correct value of l
@@ -42,13 +41,13 @@ def ComputedCSModifiedStrain(p, mode, l):
   return time, total
 
 
-def OutputdCSModifiedStrain(p, ell, only22):
+def OutputdCSModifiedStrain(p, ell, only22, lev):
     """ Generate an h5 file with the modified strain for a 
         given value of ell """
 
     ## For naming the file, replace . with p because otherwise
     ## the .h5 file can't be read by catalog scripts
-    name = str(ell).replace('.', 'p')
+    name = str(ell).replace('.', 'p') + '_Lev' + str(lev)
     
     ## Make the output directory
     os.mkdir(p + 'dCS_' + name)
@@ -70,7 +69,7 @@ def OutputdCSModifiedStrain(p, ell, only22):
           mode = (l, m)
 
         ## Compute for the given mode
-        time, total = ComputedCSModifiedStrain(p, mode, ell)
+        time, total = ComputedCSModifiedStrain(p, mode, ell, lev)
 
         dataset = grp.create_dataset("Y_l"+str(l)+"_m"+str(m)+".dat", \
         (len(time),3), dtype='f')
@@ -88,7 +87,7 @@ def OutputdCSModifiedStrain(p, ell, only22):
         l = mode[0]
         m = mode[1]
         print("Computing for ", mode)
-        time, total = ComputedCSModifiedStrain(p, mode, ell)
+        time, total = ComputedCSModifiedStrain(p, mode, ell, lev)
         ## Compute for the given mode
         dataset = grp.create_dataset("Y_l"+str(l)+"_m"+str(m)+".dat", \
         (len(time),3), dtype='f')
@@ -125,7 +124,7 @@ def GetModesFromString(modes):
         modes = [[2, 2], [2, -2]]
     return modes
 
-def GenerateStrainFiles(ell, only22 = False):
+def GenerateStrainFiles(ell, lev, only22 = False):
     """ Generates the sxs format waveform and LVC format waveform for a given
         beyond-GR simulation with coupling parameter ell. 
         
@@ -165,9 +164,9 @@ def GenerateStrainFiles(ell, only22 = False):
     sxs_resolutions = "catalog_tools/Metadata/sxs_catalog_resolutions.json"
     #modes = GetModesFromString("22only" if only22 else "all") ## modes to output
     modes = GetModesFromString("all") ## modes to output
-    out_path = "Waveforms/dCS_" + ell_string ## output directory
-    in_file = "dCS_" + ell_string + "/rhOverM_Asymptotic_GeometricUnits_dCS_ell_" + ell_string + ".h5"
-    out_file = "Waveforms/dCS_" + ell_string + "/dCS_ell_" + ell_string + ".h5"
+    out_path = "Waveforms/dCS_" + ell_string + "_Lev" + str(lev) ## output directory
+    in_file = "dCS_" + ell_string + "_Lev" + str(lev) + "/rhOverM_Asymptotic_GeometricUnits_dCS_ell_" + ell_string + ".h5"
+    out_file = "Waveforms/dCS_" + ell_string + "_Lev" + str(lev) + "/dCS_ell_" + ell_string + ".h5"
 
     ## convert the simulation into sxs format
     convert_simulation(sxs_data, resolution, sxs_metadata, sxs_resolutions, modes, out_path, \
@@ -178,6 +177,8 @@ def main():
   p = argparse.ArgumentParser(description="Generate dCS waveform for a given coupling parameter value")
   p.add_argument("--ell", required=True, type=float,\
     help="Value of dCS coupling constant")
+  p.add_argument("--lev", required=True, type=int,\
+    help="Resolution of NR run to use")
   #p.add_argument("--waveform_dir", required=True, \
   #help="Directory containing extrapolated, snipped simulation waveforms.")
   p.add_argument('--only22', help='Only output the 22 mode', \
@@ -185,7 +186,7 @@ def main():
   p.set_defaults(only22=False)
   args = p.parse_args()
 
-  GenerateStrainFiles(args.ell, args.only22)
+  GenerateStrainFiles(args.ell, args.lev, args.only22)
 
 if __name__ == "__main__":
   main()
