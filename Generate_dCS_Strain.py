@@ -58,13 +58,16 @@ def OutputdCSModifiedStrain(p, ell, only22):
     
     grp = fOut.create_group("Extrapolated_N2.dir")
     
-    l_arr = range(2, 9) if not only22 else [2]
+    ## Compute for all of the modes
+    if not only22:
+      print("Computing for all of the modes")
+      l_arr = range(2, 9)
 
-    for l in l_arr:
-      print("Computing for l = ", l)
-      for m in range(-l, l+1) if not only22 else [2, -2]:
+      for l in l_arr:
+        print("Computing for l = ", l)
 
-        mode = (l, m)
+        for m in range(-l, l+1):
+          mode = (l, m)
 
         ## Compute for the given mode
         time, total = ComputedCSModifiedStrain(p, mode, ell)
@@ -75,6 +78,40 @@ def OutputdCSModifiedStrain(p, ell, only22):
         dataset[:,0] = time
         dataset[:,1] = np.real(total)
         dataset[:,2] = np.imag(total)
+    
+    ## Compute for all of the modes
+    if only22:
+      print("Computing for (2,2), (2,-2) modes only")
+
+      modes = [(2,2),(2,-2)]
+      for mode in modes:
+        l = mode[0]
+        m = mode[1]
+        print("Computing for ", mode)
+        time, total = ComputedCSModifiedStrain(p, mode, ell)
+        ## Compute for the given mode
+        dataset = grp.create_dataset("Y_l"+str(l)+"_m"+str(m)+".dat", \
+        (len(time),3), dtype='f')
+
+        dataset[:,0] = time
+        dataset[:,1] = np.real(total)
+        dataset[:,2] = np.imag(total)
+
+      ## For all other modes
+      l_arr = range(2, 9)
+      for l in l_arr:
+        print("Computing for l = ", l)
+
+        for m in range(-l, l+1):
+          mode = (l, m)
+          if mode not in modes:
+            print("Setting zero for ", mode)
+            dataset = grp.create_dataset("Y_l"+str(l)+"_m"+str(m)+".dat", \
+            (len(time),3), dtype='f')
+
+            dataset[:,0] = np.zeros_like(time)
+            dataset[:,1] = np.zeros_like(time)
+            dataset[:,2] = np.zeros_like(time)
 
     fOut.close()
     print("Wrote waveforms to file", OutFile)
@@ -126,7 +163,8 @@ def GenerateStrainFiles(ell, only22 = False):
     resolution = 0
     sxs_metadata = "catalog_tools/Metadata/sxs_catalog.json"
     sxs_resolutions = "catalog_tools/Metadata/sxs_catalog_resolutions.json"
-    modes = GetModesFromString("22only" if only22 else "all") ## modes to output
+    #modes = GetModesFromString("22only" if only22 else "all") ## modes to output
+    modes = GetModesFromString("all") ## modes to output
     out_path = "Waveforms/dCS_" + ell_string ## output directory
     in_file = "dCS_" + ell_string + "/rhOverM_Asymptotic_GeometricUnits_dCS_ell_" + ell_string + ".h5"
     out_file = "Waveforms/dCS_" + ell_string + "/dCS_ell_" + ell_string + ".h5"

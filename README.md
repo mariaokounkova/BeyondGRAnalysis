@@ -50,6 +50,9 @@ desired coupling constant, simply do**
 
 (also see python3 Generate_dCS_Strain.py -h for help)
 
+These is also a --22only option that you can specify if you only want
+to include the (2,2) and (2,-2) modes (and set all other modes to zero)
+
 Note that this takes a while because a spline interpolant must be
 build for each mode.
 
