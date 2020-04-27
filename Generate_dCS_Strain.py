@@ -41,7 +41,7 @@ def ComputedCSModifiedStrain(p, mode, l, lev):
   return time, total
 
 
-def OutputdCSModifiedStrain(p, ell, only22, lev):
+def OutputdCSModifiedStrain(p, ell, only22, dropm0, lev):
     """ Generate an h5 file with the modified strain for a 
         given value of ell """
 
@@ -60,28 +60,7 @@ def OutputdCSModifiedStrain(p, ell, only22, lev):
     
     grp = fOut.create_group("Extrapolated_N2.dir")
     
-    ## Compute for all of the modes
-    if not only22:
-      print("Computing for all of the modes")
-      l_arr = range(2, 9)
-
-      for l in l_arr:
-        print("Computing for l = ", l)
-
-        for m in range(-l, l+1):
-          mode = (l, m)
-
-        ## Compute for the given mode
-        time, total = ComputedCSModifiedStrain(p, mode, ell, lev)
-
-        dataset = grp.create_dataset("Y_l"+str(l)+"_m"+str(m)+".dat", \
-        (len(time),3), dtype='f')
-
-        dataset[:,0] = time
-        dataset[:,1] = np.real(total)
-        dataset[:,2] = np.imag(total)
-    
-    ## Compute for all of the modes
+    ## Compute for only (2,2) and (2, -2) modes
     if only22:
       print("Computing for (2,2), (2,-2) modes only")
 
@@ -114,6 +93,62 @@ def OutputdCSModifiedStrain(p, ell, only22, lev):
             dataset[:,0] = np.zeros_like(time)
             dataset[:,1] = np.zeros_like(time)
             dataset[:,2] = np.zeros_like(time)
+            
+    ## All modes except m = 0
+    elif dropm0:
+        print("Computing for all modes except m = 0")
+    
+        l_arr = range(2, 9)
+
+        for l in l_arr:
+            print("Computing for l = ", l)
+
+            for m in range(-l, l+1):
+            
+                mode = (l, m)
+        
+                if m != 0:
+                    ## Compute the mode if not m = 0
+                    time, total = ComputedCSModifiedStrain(p, mode, ell, lev)
+
+                    dataset = grp.create_dataset("Y_l"+str(l)+"_m"+str(m)+".dat", \
+                    (len(time),3), dtype='f')
+
+                    dataset[:,0] = time
+                    dataset[:,1] = np.real(total)
+                    dataset[:,2] = np.imag(total)
+            
+                else:
+                    ## Set to zero if m = 0 
+                    print("Setting zero for ", mode)
+                    dataset = grp.create_dataset("Y_l"+str(l)+"_m"+str(m)+".dat", \
+                    (len(time),3), dtype='f')
+
+                    dataset[:,0] = np.zeros_like(time)
+                    dataset[:,1] = np.zeros_like(time)
+                    dataset[:,2] = np.zeros_like(time)
+        
+    ## Compute for all of the modes
+    else:
+        print("Computing for all of the modes")
+        l_arr = range(2, 9)
+
+        for l in l_arr:
+            print("Computing for l = ", l)
+
+            for m in range(-l, l+1):
+                mode = (l, m)
+                print(mode)
+
+                ## Compute for the given mode
+                time, total = ComputedCSModifiedStrain(p, mode, ell, lev)
+
+                dataset = grp.create_dataset("Y_l"+str(l)+"_m"+str(m)+".dat", \
+                (len(time),3), dtype='f')
+
+                dataset[:,0] = time
+                dataset[:,1] = np.real(total)
+                dataset[:,2] = np.imag(total)
 
     fOut.close()
     print("Wrote waveforms to file", OutFile)
@@ -127,7 +162,7 @@ def GetModesFromString(modes):
         modes = [[2, 2], [2, -2]]
     return modes
 
-def GenerateStrainFiles(ell, lev, only22 = False):
+def GenerateStrainFiles(ell, lev, only22, dropm0):
     """ Generates the sxs format waveform and LVC format waveform for a given
         beyond-GR simulation with coupling parameter ell. 
         
@@ -156,7 +191,7 @@ def GenerateStrainFiles(ell, lev, only22 = False):
     ell_string = str(ell).replace('.', 'p')
 
     ## Call to generate total waveform in sxs format
-    OutputdCSModifiedStrain("Waveforms/", ell, only22, lev)
+    OutputdCSModifiedStrain("Waveforms/", ell, only22, dropm0, lev)
 
     ## Vars needed for the sxs to lvc conversion script. 
     ## values like resolution and sxs_metadata and sxs_resolutions
@@ -165,7 +200,8 @@ def GenerateStrainFiles(ell, lev, only22 = False):
     resolution = 0
     sxs_metadata = "catalog_tools/Metadata/sxs_catalog.json"
     sxs_resolutions = "catalog_tools/Metadata/sxs_catalog_resolutions.json"
-    #modes = GetModesFromString("22only" if only22 else "all") ## modes to output
+    ## all modes are included in the file structure -- even though we may have
+    ## set all except (2,2) or all of the m = 0 modes to zero
     modes = GetModesFromString("all") ## modes to output
     out_path = "Waveforms/dCS_" + ell_string + "_Lev" + str(lev) ## output directory
     in_file = "dCS_" + ell_string + "_Lev" + str(lev) + "/rhOverM_Asymptotic_GeometricUnits_dCS_ell_" + ell_string + ".h5"
@@ -182,14 +218,15 @@ def main():
     help="Value of dCS coupling constant")
   p.add_argument("--lev", required=True, type=int,\
     help="Resolution of NR run to use")
-  #p.add_argument("--waveform_dir", required=True, \
-  #help="Directory containing extrapolated, snipped simulation waveforms.")
   p.add_argument('--only22', help='Only output the 22 mode', \
     dest='only22', action='store_true')
+  p.add_argument('--dropm0', help='Include all modes up to l = 8 except m = 0 modes', \
+    dest='dropm0', action='store_true')
   p.set_defaults(only22=False)
+  p.set_defaults(dropm0=False)
   args = p.parse_args()
 
-  GenerateStrainFiles(args.ell, args.lev, args.only22)
+  GenerateStrainFiles(args.ell, args.lev, args.only22, args.dropm0)
 
 if __name__ == "__main__":
   main()

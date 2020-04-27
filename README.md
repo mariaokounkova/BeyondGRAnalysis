@@ -54,8 +54,11 @@ desired coupling constant, simply do**
 
 (also see python3 Generate_dCS_Strain.py -h for help)
 
-These is also a --22only option that you can specify if you only want
+These is a --22only option that you can specify if you only want
 to include the (2,2) and (2,-2) modes (and set all other modes to zero)
+
+These is also a --dropm0 option that you can specify if you only want
+to drop the m = 0 modes
 
 For NR Run resolutions it's safe to choose 2, which is the highest res currently
 in the repo
