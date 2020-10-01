@@ -5,7 +5,7 @@
 
 workdir=NAME
 configfile=NAME.ini
-trigtime=4
+trigtime=1126259462.4107006
 
 bayeswave_pipe --workdir ${workdir} \
     --trigger-time  ${trigtime} \
