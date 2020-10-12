@@ -1,13 +1,13 @@
 #!/usr/bin/python
 
 import sys
-sys.path.insert(1, 'catalog_tools')
-from convert_sxs_to_lvc import *
 import argparse
 import scipy
 import h5py
 import numpy as np
 import os
+sys.path.insert(1, 'catalog_tools')
+from convert_sxs_to_lvc import *
 
 def ReadExtrapolatedMode(p, piece, mode, lev, order=2, ell=None):
   """ Given a file of extrapolated modes, read in the (mode)
@@ -15,7 +15,7 @@ def ReadExtrapolatedMode(p, piece, mode, lev, order=2, ell=None):
   ell = str(ell).replace('.', 'p')
   piece_dict = {"DeltaStrain" : "Lev" + str(lev) + "/DeltaStrain.h5", \
           "BackgroundStrain" : "Lev" + str(lev) + "/BackgroundStrain.h5", \
-          "dCSModified" : "/Lev" + str(lev) + "/dCS_" + ell + "_Lev" + str(lev) + "/rhOverM_Asymptotic_GeometricUnits_dCS_ell_" + ell + ".h5", \
+          "dCSModified" : "/dCS_" + ell + "_Lev" + str(lev) + "/rhOverM_Asymptotic_GeometricUnits_CoM.h5", \
                   "hRWZ" : "Lev" + str(lev) + "/rhOverM_Asymptotic_GeometricUnits.h5"}
   file = p + piece_dict[piece]
   l = mode[0]
@@ -51,20 +51,19 @@ def OutputdCSModifiedStrain(p, ell, only22, dropm0, lev):
     name_lev = str(ell).replace('.', 'p') + '_Lev' + str(lev)
     
     ## Make the output directory
-    os.mkdir(p + "/Lev" + str(lev) + '/dCS_' + name_lev)
     os.mkdir(p + '/dCS_' + name_lev)
     
-    OutFile = p + "Lev" + str(lev) + '/dCS_' + name_lev + \
-      '/rhOverM_Asymptotic_GeometricUnits_dCS_ell_' + name + '.h5'
+    OutFile = p + 'dCS_' + name_lev + \
+      '/rhOverM_Asymptotic_GeometricUnits_CoM.h5'
     fOut = h5py.File(OutFile, 'w')
     
     grp = fOut.create_group("Extrapolated_N2.dir")
     
-    ## Compute for only (2,2) and (2, -2) modes
+    ## Compute for only (2,2) modes
     if only22:
-      print("Computing for (2,2), (2,-2) modes only")
+      print("Computing for (2,2) mode only")
 
-      modes = [(2,2),(2,-2)]
+      modes = [(2,2)]
       for mode in modes:
         l = mode[0]
         m = mode[1]
@@ -159,17 +158,17 @@ def GetModesFromString(modes):
     if modes == 'all':
         modes = [[l,m] for l in range(2,9) for m in range(-l,l+1)]
     elif modes == '22only':
-        modes = [[2, 2], [2, -2]]
+        modes = [[2, 2]]
     return modes
 
-def GenerateStrainFiles(ell, lev, only22, dropm0):
+def GenerateStrainFiles(ell, lev, only22, dropm0, convert_lvc):
     """ Generates the sxs format waveform and LVC format waveform for a given
         beyond-GR simulation with coupling parameter ell. 
         
-        The file BeyondGRAnalysis/Waveforms/BackgroundStrain.h5 contains the strain
+        The file BeyondGRAnalysis/Waveforms/Lev*/BackgroundStrain.h5 contains the strain
         of the GR background, h_GR. 
         
-        Meanwhile the file BeyondGRAnalysis/Waveforms/DeltaStrain.h5 contains the 
+        Meanwhile the file BeyondGRAnalysis/Waveforms/Lev*/DeltaStrain.h5 contains the 
         leading-order modification to the beyond-GR strain, delta_h. 
         
         We first generate the sxs format total beyond-GR waveform for these
@@ -193,24 +192,25 @@ def GenerateStrainFiles(ell, lev, only22, dropm0):
     ## Call to generate total waveform in sxs format
     OutputdCSModifiedStrain("Waveforms/", ell, only22, dropm0, lev)
 
-    ## Vars needed for the sxs to lvc conversion script. 
-    ## values like resolution and sxs_metadata and sxs_resolutions
-    ## don't really matter, but we need to specify them
-    sxs_data = "Waveforms/Lev" + str(lev) ## input directory
-    resolution = 0
-    sxs_metadata = "catalog_tools/Metadata/sxs_catalog.json"
-    sxs_resolutions = "catalog_tools/Metadata/sxs_catalog_resolutions.json"
-    ## all modes are included in the file structure -- even though we may have
-    ## set all except (2,2) or all of the m = 0 modes to zero
-    modes = GetModesFromString("all") ## modes to output
-    out_path = "Waveforms/dCS_" + ell_string + "_Lev" + str(lev) ## output directory
-    in_file = "dCS_" + ell_string + "_Lev" + str(lev) + "/rhOverM_Asymptotic_GeometricUnits_dCS_ell_" + ell_string + ".h5"
-    out_file = "Waveforms/dCS_" + ell_string + "_Lev" + str(lev) + "/dCS_ell_" + ell_string + ".h5"
+    if convert_lvc:
+      ## Vars needed for the sxs to lvc conversion script. 
+      ## values like resolution and sxs_metadata and sxs_resolutions
+      ## don't really matter, but we need to specify them
+      sxs_data = "Waveforms/Lev" + str(lev) ## input directory
+      resolution = 0
+      sxs_metadata = "catalog_tools/Metadata/sxs_catalog.json"
+      sxs_resolutions = "catalog_tools/Metadata/sxs_catalog_resolutions.json"
+      ## all modes are included in the file structure -- even though we may have
+      ## set all except (2,2) or all of the m = 0 modes to zero
+      modes = GetModesFromString("all") ## modes to output
+      out_path = "Waveforms/dCS_" + ell_string + "_Lev" + str(lev) ## output directory
+      in_file = "dCS_" + ell_string + "_Lev" + str(lev) + "/rhOverM_Asymptotic_GeometricUnits_CoM.h5"
+      out_file = "Waveforms/dCS_" + ell_string + "_Lev" + str(lev) + "/dCS_ell_" + ell_string + ".h5"
 
-    ## convert the simulation into sxs format
-    convert_simulation(sxs_data, resolution, sxs_metadata, sxs_resolutions, modes, out_path, \
-                  in_name = in_file, out_name = out_file)
-    print("Output LVC format waveform to", out_file)
+      ## convert the simulation into sxs format
+      convert_simulation(sxs_data, resolution, sxs_metadata, sxs_resolutions, modes, out_path, \
+                    in_name = in_file, out_name = out_file)
+      print("Output LVC format waveform to", out_file)
     
 def main():
   p = argparse.ArgumentParser(description="Generate dCS waveform for a given coupling parameter value")
@@ -222,11 +222,14 @@ def main():
     dest='only22', action='store_true')
   p.add_argument('--dropm0', help='Include all modes up to l = 8 except m = 0 modes', \
     dest='dropm0', action='store_true')
+  p.add_argument('--convert_lvc', help='Output waveform in LVC format as well', \
+    dest='convert_lvc', action='store_true')
   p.set_defaults(only22=False)
   p.set_defaults(dropm0=False)
+  p.set_defaults(convert_lvc=False)
   args = p.parse_args()
 
-  GenerateStrainFiles(args.ell, args.lev, args.only22, args.dropm0)
+  GenerateStrainFiles(args.ell, args.lev, args.only22, args.dropm0, args.convert_lvc)
 
 if __name__ == "__main__":
   main()
