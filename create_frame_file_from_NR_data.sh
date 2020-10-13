@@ -9,9 +9,11 @@ lev=$3
 
 APPROXIMANT=NR_hdf5
 DIR="dCS_"${ell}"_Lev"${lev}
-h5path=Waveforms/${DIR}/dCS_ell_${ell}.h5
-MASS1=37.386085075316785
-MASS2=30.613915574190038
+h5path=Waveforms_22/${DIR}/dCS_ell_${ell}.h5
+#MASS1=37.386085075316785
+MASS1=54.9795368755
+#MASS2=30.613915574190038
+MASS2=45.0204640797
 #SPIN1X=3.45812819445e-09                                                                                                                                                                #SPIN1Y=-1.30280350261e-08                                                                                                                                                               
 SPIN1Z=0.329894028067
 #SPIN2X=1.8249973247e-08                                                                                                                                                                 #SPIN2Y=1.643082404e-08                                                                                                                                                                  
@@ -37,8 +39,8 @@ TIME=1197495364
 START_TIME=$(echo "${TIME} - 10" | bc -l)
 END_TIME=$(echo "${TIME} + 10" | bc -l)
 
-FLOW=21
-SNR_FLOW=21
+FLOW=18
+SNR_FLOW=18
 FHIGH=1024
 
 pycbc_generate_hwinj \
@@ -63,12 +65,12 @@ pycbc_generate_hwinj \
     --channel-name H1:GDS-CALIB_STRAIN L1:GDS-CALIB_STRAIN \
     --taper TAPER_START \
     --network-snr ${SNR} \
-    --psd-file H1:${PSDs}/aLIGOZeroDetHighPower-PSD_21Hz.txt L1:${PSDs}/aLIGOZeroDetHighPower-PSD_21Hz.txt \
+    --psd-file H1:${PSDs}/aLIGOZeroDetHighPower-PSD.txt L1:${PSDs}/aLIGOZeroDetHighPower-PSD.txt \
     --low-frequency-cutoff $SNR_FLOW \
     --high-frequency-cutoff $FHIGH \
     --geocentric-end-time $TIME \
     --gps-start-time $START_TIME \
-    --gps-end-time $END_TIME 
+    --gps-end-time $END_TIME
 
    # --psd-low-frequency-cutoff $PSD_FLOW  \
    # --psd-high-frequency-cutoff $FHIGH \   
@@ -117,23 +119,23 @@ pycbc_insert_frame_hwinj \
 #    --strain-high-pass 1
 
 # Copy xml file
-mv hwinjcbc_${HWINJ_START_TIME}.xml.gz Waveforms/${DIR}/hwinjcbc_${HWINJ_START_TIME}_${NAME}.xml.gz
+mv hwinjcbc_${HWINJ_START_TIME}.xml.gz Waveforms_22/${DIR}/hwinjcbc_${HWINJ_START_TIME}_${NAME}.xml.gz
 # Move files into directory
-mv hwinjcbc_${HWINJ_START_TIME}_H1.txt Waveforms/${DIR}/hwinjcbc_${HWINJ_START_TIME}_${NAME}_H1.txt
-mv hwinjcbc_${HWINJ_START_TIME}_L1.txt Waveforms/${DIR}/hwinjcbc_${HWINJ_START_TIME}_${NAME}_L1.txt
-mv H-H1HWINJ_${NAME}.gwf Waveforms/${DIR}/H-H1HWINJ_${NAME}.gwf
-mv L-L1HWINJ_${NAME}.gwf Waveforms/${DIR}/L-L1HWINJ_${NAME}.gwf
+mv hwinjcbc_${HWINJ_START_TIME}_H1.txt Waveforms_22/${DIR}/hwinjcbc_${HWINJ_START_TIME}_${NAME}_H1.txt
+mv hwinjcbc_${HWINJ_START_TIME}_L1.txt Waveforms_22/${DIR}/hwinjcbc_${HWINJ_START_TIME}_${NAME}_L1.txt
+mv H-H1HWINJ_${NAME}.gwf Waveforms_22/${DIR}/H-H1HWINJ_${NAME}.gwf
+mv L-L1HWINJ_${NAME}.gwf Waveforms_22/${DIR}/L-L1HWINJ_${NAME}.gwf
 
 # make the cache files
-echo -e "-\t-\t-\t-\tfile://localhost/home/maria.okounkova/BeyondGRAnalysis/Waveforms/${DIR}/H-H1HWINJ_${NAME}.gwf" > Waveforms/${DIR}/H-${NAME}.lcf
-echo -e "-\t-\t-\t-\tfile://localhost/home/maria.okounkova/BeyondGRAnalysis/Waveforms/${DIR}/L-L1HWINJ_${NAME}.gwf" > Waveforms/${DIR}/L-${NAME}.lcf
+echo -e "-\t-\t-\t-\tfile://localhost/home/maria.okounkova/BeyondGRAnalysis/Waveforms_22/${DIR}/H-H1HWINJ_${NAME}.gwf" > Waveforms_22/${DIR}/H-${NAME}.lcf
+echo -e "-\t-\t-\t-\tfile://localhost/home/maria.okounkova/BeyondGRAnalysis/Waveforms_22/${DIR}/L-L1HWINJ_${NAME}.gwf" > Waveforms_22/${DIR}/L-${NAME}.lcf
 
 # now make the Bayeswave ini file
-cp dCS.ini Waveforms/${DIR}/${NAME}.ini
-sed -i "s/ELL/${ell}/g" "Waveforms/${DIR}/${NAME}.ini"
-sed -i "s/NAME/${NAME}/g" "Waveforms/${DIR}/${NAME}.ini"
-sed -i "s/LEV/${lev}/g" "Waveforms/${DIR}/${NAME}.ini"
+cp dCS.ini Waveforms_22/${DIR}/${NAME}.ini
+sed -i "s/ELL/${ell}/g" "Waveforms_22/${DIR}/${NAME}.ini"
+sed -i "s/NAME/${NAME}/g" "Waveforms_22/${DIR}/${NAME}.ini"
+sed -i "s/LEV/${lev}/g" "Waveforms_22/${DIR}/${NAME}.ini"
 
 # make the Bayeswave submission script
-cp run_bw.sh Waveforms/${DIR}/run_bw_${NAME}.sh
-sed -i "s/NAME/${NAME}/g" "Waveforms/${DIR}/run_bw_${NAME}.sh"
+cp run_bw.sh Waveforms_22/${DIR}/run_bw_${NAME}.sh
+sed -i "s/NAME/${NAME}/g" "Waveforms_22/${DIR}/run_bw_${NAME}.sh"
