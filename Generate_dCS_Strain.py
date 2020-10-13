@@ -63,7 +63,7 @@ def OutputdCSModifiedStrain(p, ell, only22, dropm0, lev):
     if only22:
       print("Computing for (2,2) mode only")
 
-      modes = [(2,2)]
+      modes = [(2, -2), (2,2)]
       for mode in modes:
         l = mode[0]
         m = mode[1]
