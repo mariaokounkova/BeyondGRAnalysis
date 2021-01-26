@@ -1,6 +1,7 @@
 catalog_tools/convert_sxs_to_lvc.pyc
-Waveforms/Lev*/dCS_*/rh*
-Waveforms/dCS*
+Waveforms/Lev*/dCS*
+Frames
+PreviousWaveforms
 .ipynb_checkpoints
 *.pdf
 __pycache__

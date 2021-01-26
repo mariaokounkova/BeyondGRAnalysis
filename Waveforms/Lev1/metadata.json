@@ -69,6 +69,7 @@
         0.0060237633603256,
         2.3654355e-09
     ],
+    "relaxation_time": 640.0,
     "reference_time": 640.0,
     "reference_mass1": 0.549828311405,
     "reference_mass2": 0.450216151798,
@@ -112,6 +113,7 @@
         0.000384097292206,
         6.26661424833e-08
     ],
+    "metadata_version": 1,
     "spec_revisions": "InitialCommit-30896-gf254d8b",
     "spells_revision": "4a63ebd9117136a3022c4a8a9825fc2bd42ca8a9"
 }

@@ -28,7 +28,7 @@ point-of-contact-email = mokounkova@flatironinstitute.org
 authors-emails         = 
 
 #--------------------------------
-# references
+# References
 #--------------------------------
 
 # (1) papers describing this particular run (if any)
@@ -76,17 +76,20 @@ initial-position1 = 5.8335823803329898,  0.0060237633603256,  0.0000000023654355
 initial-position2 = -7.1664176196670102,  0.0060237633603256,  0.0000000023654355
 
 #--------------------------------
-# Relaxed quantities
+# Quantities at reference time
 #--------------------------------
+
+# time at which we deem junk radiation to have sufficiently decayed
+relaxation-time = 640.0
 
 # time at which the reference quantities are measured
 reference-time = 640.0
 
-# Christodoulou masses at reference time
+# Christodoulou masses at reference time (t=0 for NSs)
 reference-mass1    = 0.549828311405
 reference-mass2    = 0.450216151798
 
-# dimensionless spins, i.e. \chi_i = S_i / M_i^2, at reference time
+# dimensionless spins, i.e. \chi_i = S_i / M_i^2, at reference time (t=0 for NSs)
 reference-dimensionless-spin1 = -1.81880819211e-08, 7.41031052488e-08, 0.329806410163
 reference-dimensionless-spin2 = -3.8398192593e-08, 1.09295594483e-07, -0.43992819227
 
@@ -94,14 +97,14 @@ reference-dimensionless-spin2 = -3.8398192593e-08, 1.09295594483e-07, -0.4399281
 reference-position1 = 5.07860564481, 2.75713613777, -3.70498027956e-05
 reference-position2 = -6.25191710862, -3.38099096864, -3.42747490722e-05
 
-# orbital frequency at relaxation time
+# orbital frequency at reference time
 reference-orbital-frequency = 4.22280157005e-09, 1.90389964637e-09, 0.0214528918113
 
 #--------------------------------
-# info that concerns complete run
+# Info that concerns complete run
 #--------------------------------
 
-# orbital eccentricity and mean anomaly measured at reference-measurement-time
+# orbital eccentricity and mean anomaly measured at reference time
 reference-eccentricity = 0.0003181
 reference-mean-anomaly = 5.890221
 
@@ -127,6 +130,9 @@ remnant-velocity = -0.000247494935826, 0.000384097292206, 6.26661424833e-08
 #--------------------------------
 # Code information
 #--------------------------------
+
+# version of this metadata file
+metadata-version = 1
 
 # unique, ordered list of revisions used for the evolution
 spec-revisions  = InitialCommit-30896-gf254d8b
