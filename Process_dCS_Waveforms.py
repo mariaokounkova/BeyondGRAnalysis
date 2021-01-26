@@ -10,6 +10,9 @@ import json
 import sxs
 from scipy.optimize import fmin
 
+""" Given extrapolated waveforms for the strain and delta psi4, 
+    compute BackgroundStrain and DeltaStrain """
+
 def CutTimes(time, data, TLow, TUp): 
 	""" Cut time and data to be between 
 	    TLow and TUp  """
