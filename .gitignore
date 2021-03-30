@@ -4,4 +4,5 @@ Frames
 PreviousWaveforms
 .ipynb_checkpoints
 *.pdf
+*.gwf
 __pycache__
