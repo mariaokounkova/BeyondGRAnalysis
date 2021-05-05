@@ -30,14 +30,22 @@ np.random.seed(88170235)
 # spins of both black holes (a, tilt, phi), etc.
 
 # Going through all of the parameter meanings
-# a_1, a_2: spin magnitude
-# tilt_1, tilt_2: ?
-# theta_jn: ?
-# psi: ?
-# phase: ?
-# phi_jl: ?
-# phi_12: ?
+# a_1, a_2: spin magnitude 0 <= a <= 1
+# tilt_1, tilt_2: 0 for straight up, pi for straight down (co-latitude to spin vector in orbital frame)
+# theta_jn: not the inclination of orbit to line of sight, but inlicnation of total angular momentum
+# to the line of sight. (Farr and Farr have a paper) cos(theta_jn) = total angular momentum (j) . vector pointing to observer (n)
+# if 0, then pointing at you. pi, looking at the bottom. 
+# psi: polarization (angle on the sky of the pericenter wrt to interferometer -- degenerate for circular orbits)
+# phase: phase of coalescence (at some fiducial time)
+# phi_jl: longitudes, azimuthal angles. Angle between total angular momentum projected into the x-y plane. 0 for non-precession --
+# should maybe be called phi_j (azimuthal angle of total angular momentum vector in orbital frame)
+# phi_12: Angle from spin 1 to spin 2 also in x-y plane in orbital frame 
+# Normal to the plane and orbital angular momentum are not the same (bc of PN corrections). May not be the instantaneous plane where
+# the velocities of the two objects live. 
 
+## Injection in detector frame quantities, and recovers in detector frame quantities 
+
+## Flip the mass ratio
 injection_parameters = dict(
     mass_ratio = 1.2212532137858916, chirp_mass = 29.422167356249002, a_1=0.4, a_2=0.3, 
     tilt_1=0.5, tilt_2=1.0,
