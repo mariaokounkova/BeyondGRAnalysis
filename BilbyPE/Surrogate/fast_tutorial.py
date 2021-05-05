@@ -28,11 +28,23 @@ np.random.seed(88170235)
 # dictionary of parameters that includes all of the different waveform
 # parameters, including masses of the two black holes (mass_1, mass_2),
 # spins of both black holes (a, tilt, phi), etc.
+
+# Going through all of the parameter meanings
+# a_1, a_2: spin magnitude
+# tilt_1, tilt_2: ?
+# theta_jn: ?
+# psi: ?
+# phase: ?
+# phi_jl: ?
+# phi_12: ?
+
 injection_parameters = dict(
     mass_ratio = 1.2212532137858916, chirp_mass = 29.422167356249002, a_1=0.4, a_2=0.3, 
     tilt_1=0.5, tilt_2=1.0,
     phi_12=1.7, phi_jl=0.3, luminosity_distance=400., theta_jn=0.4, psi=2.659,
-    phase=1.3, geocent_time=1126259642.413, ra=1.375, dec=-1.2108)
+    phase=1.3, geocent_time=1126259462.0, ra=1.952318922, dec=-1.26967171703)
+
+
 
 # Fixed arguments passed into the source model
 #waveform_arguments = dict(waveform_approximant='IMRPhenomPv2',
