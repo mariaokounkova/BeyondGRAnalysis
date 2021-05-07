@@ -47,10 +47,10 @@ np.random.seed(88170235)
 
 ## Flip the mass ratio
 injection_parameters = dict(
-    mass_ratio = 1.2212532137858916, chirp_mass = 29.422167356249002, a_1=0.4, a_2=0.3, 
-    tilt_1=0.5, tilt_2=1.0,
-    phi_12=1.7, phi_jl=0.3, luminosity_distance=400., theta_jn=0.4, psi=2.659,
-    phase=1.3, geocent_time=1126259462.0, ra=1.952318922, dec=-1.26967171703)
+    mass_ratio = 0.8, chirp_mass = 29.378924880880138, a_1=0.33, a_2=0.44, 
+    tilt_1=0.0, tilt_2=3.14159265359,
+    phi_12=0.0, phi_jl=0.0, luminosity_distance=2000., theta_jn=3.14159265359, psi=0.0,
+    phase=0.0, geocent_time=1126259462.0, ra=1.952318922, dec=-1.26967171703)
 
 
 
@@ -58,7 +58,7 @@ injection_parameters = dict(
 #waveform_arguments = dict(waveform_approximant='IMRPhenomPv2',
 #                          reference_frequency=50., minimum_frequency=20.)
 waveform_arguments = dict(waveform_approximant='NRSur7dq4',
-                          reference_frequency=50., minimum_frequency=30.)
+                          reference_frequency=25., minimum_frequency=25.)
 print("Set up waveform arguments")
 
 # Create the waveform_generator using a LAL BinaryBlackHole source function
@@ -76,7 +76,7 @@ print("Set up waveform generator")
 ifos = bilby.gw.detector.InterferometerList(['H1', 'L1'])
 ifos.set_strain_data_from_power_spectral_densities(
     sampling_frequency=sampling_frequency, duration=duration,
-    start_time=injection_parameters['geocent_time'] - 0.1)
+    start_time=injection_parameters['geocent_time'] - 0.5)
 ifos.inject_signal(waveform_generator=waveform_generator,
                    parameters=injection_parameters)
 print("Injected signal")
@@ -97,10 +97,16 @@ priors['geocent_time'] = bilby.core.prior.Uniform(
     minimum=injection_parameters['geocent_time'] - 1,
     maximum=injection_parameters['geocent_time'] + 1,
     name='geocent_time', latex_label='$t_c$', unit='$s$')
-for key in ['luminosity_distance', 'theta_jn', 'a_1', 'a_2', 'tilt_1', 'tilt_2', 'phi_12', 'phi_jl', 'psi', 'ra',
+#for key in ['luminosity_distance', 'theta_jn', 'a_1', 'a_2', 'tilt_1', 'tilt_2', 'phi_12', 'phi_jl', 'psi', 'ra',
+#            'dec', 'geocent_time', 'phase']:
+for key in ['luminosity_distance', 'theta_jn', 'tilt_1', 'tilt_2', 'phi_12', 'phi_jl', 'psi', 'ra',
             'dec', 'geocent_time', 'phase']:
     priors[key] = injection_parameters[key]
+# If we're searching for the mass ratio, restrict the prior to the allowed values for NRSur7dq4
 priors['mass_ratio'] = bilby.core.prior.Uniform(name='mass_ratio', minimum=0.2, maximum=1, latex_label='$q$')
+# If we're searching for the spins, restrict ourselves to 0.8
+priors['a_1'] = bilby.core.prior.Uniform(name='a_1', minimum=0.0, maximum=0.7, latex_label='$a_1$')
+priors['a_2'] = bilby.core.prior.Uniform(name='a_2', minimum=0.0, maximum=0.7, latex_label='$a_2$')
 
 # Initialise the likelihood by passing in the interferometer data (ifos) and
 # the waveform generator
