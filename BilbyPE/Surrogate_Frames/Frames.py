@@ -37,22 +37,31 @@ filter_freq = None
 for det in interferometer_names:
 
     logger.info("Downloading analysis data for ifo {}".format(det))
-    file_name = "/home/maria.okounkova/BeyondGRAnalysis/BilbyPE/Surrogate_Frames/Frames_EqualMassNonSpinning/" \
+    file_name = "/home/maria.okounkova/BeyondGRAnalysis/BilbyPE/" + \
+                "Surrogate_Frames/Frames_EqualMassNonSpinning/" \
                 + det + ".gwf"
     ifo = bilby.gw.detector.get_empty_interferometer(det)
+
     ## Read in the strain data from frame
-    data = gwutils.read_frame_file(file_name = file_name, start_time = start_time, end_time = end_time, \
-                                     buffer_time = 4.0, \
-                                     channel = det + ":LDAS_STRAIN")
+    data = gwutils.read_frame_file(file_name = file_name, \
+                            start_time = start_time, end_time = end_time, \
+                            buffer_time = 4.0, \
+                            channel = det + ":LDAS_STRAIN")
 
     ifo.set_strain_data_from_gwpy_timeseries(data)
 
     logger.info("Downloading psd data for ifo {}".format(det))
-    psd_data = gwutils.read_frame_file(file_name = det + '_PSD.gwf', start_time = psd_start_time, 
-                                     end_time = psd_end_time, \
-                                     buffer_time = 4.0, \
-                                     channel = det + ":LDAS_STRAIN")
-#### TODO: UPDATE THE FRAMES FILES SO THAT WE HAVE DATA IN THE TIMES
+    ## Read in the fake psd data (all zeros in our case)
+    psd_data = gwutils.read_frame_file(file_name = \
+                    "/home/maria.okounkova/BeyondGRAnalysis/BilbyPE/" + \
+                    "Surrogate_Frames/Frames_PSD/" \
+                                    + det + ".gwf", \
+                          start_time = psd_start_time, \
+                          end_time = psd_end_time, \
+                          buffer_time = 4.0, \
+                          channel = det + ":LDAS_STRAIN")
+
+
     psd_alpha = 2 * roll_off / duration  # shape parameter of tukey window
     psd = psd_data.psd(
         fftlength=duration,
