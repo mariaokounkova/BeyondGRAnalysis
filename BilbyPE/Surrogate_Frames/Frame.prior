@@ -1,0 +1,15 @@
+mass_ratio = Uniform(name='mass_ratio', minimum=0.2, maximum=1, latex_label='$q$')
+chirp_mass = 29.378924880880138
+a_1 = 0.0
+a_2 = 0.0
+tilt_1 = 0.0
+tilt_2 = 0.0
+phi_12 = 0.0
+phi_jl = 0.0
+luminosity_distance = 2000.0
+dec = -1.26967171703
+ra = 1.95231892
+theta_jn = 3.14159265359
+psi = Uniform(name='psi', minimum=0, maximum=2 * np.pi, boundary='periodic')
+phase = Uniform(name='phase', minimum=0, maximum=2 * np.pi, boundary='periodic')
+geocent_time = Uniform(name='geocent_time', minimum =1126259460.0, maximum=1126259464.0)
