@@ -32,15 +32,6 @@ time_of_event = 1126259462.0
 post_trigger_duration = 2  # time between trigger time and end of segment
 end_time = time_of_event + post_trigger_duration
 start_time = end_time - duration
-print(start_time, end_time)
-
-roll_off = 0.4  # smoothness in a tukey window, default is 0.4s
-# This determines the time window used to fetch open data
-psd_duration = 1 * duration
-psd_start_time = start_time - psd_duration
-psd_end_time = start_time
-print(psd_start_time, psd_end_time)
-filter_freq = None  
 
 for det in interferometer_names:
 
