@@ -6,8 +6,6 @@ import scipy
 import h5py
 import numpy as np
 import os
-sys.path.insert(1, 'catalog_tools')
-from convert_sxs_to_lvc import *
 
 def ReadExtrapolatedMode(p, piece, mode, lev, ell=None):
   """ Given a file of extrapolated modes, read in the (mode)
@@ -198,7 +196,6 @@ def main():
     dest='dropm0', action='store_true')
   p.set_defaults(only22=False)
   p.set_defaults(dropm0=False)
-  p.set_defaults(convert_lvc=False)
   args = p.parse_args()
 
   GenerateStrainFiles(args.ell, args.lev, args.only22, args.dropm0)
