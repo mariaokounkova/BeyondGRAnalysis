@@ -1,4 +1,5 @@
-catalog_tools/convert_sxs_to_lvc.pyc
+BilbyPE/NR*
+BilbyPE/Surrogate*
 Waveforms/Lev*/dCS*
 Frames
 PreviousWaveforms
