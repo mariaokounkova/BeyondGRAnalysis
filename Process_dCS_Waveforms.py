@@ -56,6 +56,7 @@ def DeltaPsi4Factor(hPsi4, B = 0.1):
     """ h^{(2)}_{ab} = (ell/GM)^4 / 8 Delta g_{ab} 
         -- need to divide by a factor of 8
     """
+    print('Applying DeltaPsi4Factor')
     hPsi4 = hPsi4 / 8.0
     ## Also need to divide by B^2 (since it's at order l^4)
     hPsi4 = hPsi4 / B**2
