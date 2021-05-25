@@ -100,7 +100,8 @@ def ComputeStrain(time, psi4, data_dir):
         linear operation """
     ## Grab the sum of the Christodolou masses
 
-    mass = ChristodolouMass(data_dir) 
+    ## mass = ChristodolouMass(data_dir) 
+    mass = 1.0 ## for now 
     ## Divide the result twice by the Christodolou mass, since we 
     ## have rDeltaMPsi4, and we need rhOverM
     psi4_real = np.real(psi4)
@@ -215,8 +216,8 @@ def main():
 	print("\n Working in directory " + data_dir + "\n")
 
 	## First make the json file
-	print("Making metadata.json")
-	MakeJSonFile(data_dir + '/')
+	#print("Making metadata.json")
+	#MakeJSonFile(data_dir + '/')
 
 	## produce DeltaStrain.h5 and BackgroundStrain.h5 files
 	print("\n Computing and outputting delta strain \n")

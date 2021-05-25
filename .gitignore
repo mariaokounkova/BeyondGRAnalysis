@@ -1,6 +1,7 @@
 BilbyPE/NR*
 BilbyPE/Surrogate*
-Waveforms/Lev*/dCS*
+BilbyPE/dCS*
+Waveforms/*
 Frames
 PreviousWaveforms
 .ipynb_checkpoints
