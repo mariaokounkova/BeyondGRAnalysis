@@ -9,7 +9,7 @@ import numpy as np
 #### Setup ###########
 ######################
 
-root_dir = '/home/maria.okounkova/BeyondGRAnalysis/BilbyPE/Surrogate_FramesSearch/'
+root_dir = '/home/maria.okounkova/BeyondGRAnalysis/BilbyPE/dCS_0p0_SpinExtended/'
 logger = bilby.core.utils.logger
 outdir = root_dir + 'outdir'
 label = 'fast_tutorial' 
@@ -36,7 +36,7 @@ start_time = end_time - duration
 for det in interferometer_names:
 
     logger.info("Downloading analysis data for ifo {}".format(det))
-    file_name = root_dir + "Frames_Spinning/" + det + ".gwf"
+    file_name = root_dir + "Frames_dCS/" + det + ".gwf"
     ifo = bilby.gw.detector.get_empty_interferometer(det)
 
     ## Read in the strain data from frame
@@ -81,7 +81,8 @@ sampling_frequency = 2048.  # same at which the data is stored
 
 # Set up waveform arguments
 waveform_arguments = dict(waveform_approximant='NRSur7dq4',
-                          reference_frequency=25., minimum_frequency=25.)
+                          minimum_frequency = 40.0, maximum_frequency = 2048.0, 
+                          reference_frequency = 60.0)
 logger.info("Set up waveform arguments")
 
 # Waveform generator 
@@ -101,8 +102,8 @@ logger.info("Set up likelihood")
 # Run sampler 
 ## TODO: Get injection parameters in as arg injection_parameters=injection_parameters
 result = bilby.run_sampler(
-    likelihood=likelihood, priors=prior, sampler='dynesty', npoints=1000,
-    outdir=outdir, label=label, npool=24)
+    likelihood=likelihood, priors=prior, sampler='dynesty', npoints=100,
+    outdir=outdir, label=label, npool=1)
 logger.info("Ran sampler")
 
 result.plot_corner()
