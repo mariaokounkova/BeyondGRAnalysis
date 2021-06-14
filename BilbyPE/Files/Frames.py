@@ -81,8 +81,7 @@ sampling_frequency = 2048.  # same at which the data is stored
 
 # Set up waveform arguments
 waveform_arguments = dict(waveform_approximant='NRSur7dq4',
-                          minimum_frequency = 40.0, maximum_frequency = 2048.0, 
-                          reference_frequency = 60.0)
+                          minimum_frequency = 35.9, maximum_frequency = 2048.0)
 logger.info("Set up waveform arguments")
 
 # Waveform generator 
@@ -102,8 +101,8 @@ logger.info("Set up likelihood")
 # Run sampler 
 ## TODO: Get injection parameters in as arg injection_parameters=injection_parameters
 result = bilby.run_sampler(
-    likelihood=likelihood, priors=prior, sampler='dynesty', npoints=100,
-    outdir=outdir, label=label, npool=1)
+    likelihood=likelihood, priors=prior, sampler='dynesty', npoints=1000,
+    outdir=outdir, label=label, npool=24)
 logger.info("Ran sampler")
 
 result.plot_corner()
