@@ -9,7 +9,7 @@ import numpy as np
 #### Setup ###########
 ######################
 
-root_dir = '/home/maria.okounkova/BeyondGRAnalysis/BilbyPE/dCS_0p0_SpinExtended/'
+root_dir = '/home/maria.okounkova/BeyondGRAnalysis/BilbyPE/FRAMES_DIR/'
 logger = bilby.core.utils.logger
 outdir = root_dir + 'outdir'
 label = 'fast_tutorial' 
@@ -36,7 +36,7 @@ start_time = end_time - duration
 for det in interferometer_names:
 
     logger.info("Downloading analysis data for ifo {}".format(det))
-    file_name = root_dir + "Frames_dCS/" + det + ".gwf"
+    file_name = root_dir + "Frames/" + det + ".gwf"
     ifo = bilby.gw.detector.get_empty_interferometer(det)
 
     ## Read in the strain data from frame
@@ -49,7 +49,7 @@ for det in interferometer_names:
     
     ## Read in our own psd
     
-    psd_file = root_dir + 'aLIGOZeroDetHighPower-PSD.txt'
+    psd_file = root_dir + 'aLIGOZeroDetHighPower-PSD_25Hz.txt'
     psd_frequencies_value, psd_value = np.loadtxt(psd_file, comments="#",usecols=([0,1]),unpack=True)
 
     ## Comment out if you want to use the default design psd
@@ -81,7 +81,8 @@ sampling_frequency = 2048.  # same at which the data is stored
 
 # Set up waveform arguments
 waveform_arguments = dict(waveform_approximant='NRSur7dq4',
-                          minimum_frequency = 35.9, maximum_frequency = 2048.0)
+                          minimum_frequency = 35.9, 
+                          maximum_frequency = 2048.0)
 logger.info("Set up waveform arguments")
 
 # Waveform generator 
