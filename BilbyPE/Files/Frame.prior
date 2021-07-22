@@ -2,10 +2,10 @@
 #chirp_mass = 29.422167356249002
 #a_1 = 0.329892752405
 #a_2 = 0.439940981499
-mass_ratio = Uniform(name='mass_ratio', minimum=0.25, maximum=1, latex_label='$q$')
-chirp_mass = Uniform(name='chirp_mass', minimum=20, maximum=50, latex_label='$M_C$')
-a_1 = bilby.core.prior.Uniform(name='a_1', minimum=0.0, maximum=0.8, latex_label='$a_1$')
-a_2 = bilby.core.prior.Uniform(name='a_2', minimum=0.0, maximum=0.8, latex_label='$a_2$')
+mass_ratio = Uniform(name='mass_ratio', minimum=0.2, maximum=1, latex_label='$q$')
+chirp_mass = Uniform(name='chirp_mass', minimum=25, maximum=40, latex_label='$M_C$')
+a_1 = bilby.core.prior.Uniform(name='a_1', minimum=0.0, maximum=0.75, latex_label='$a_1$')
+a_2 = bilby.core.prior.Uniform(name='a_2', minimum=0.0, maximum=0.75, latex_label='$a_2$')
 #a_1 = bilby.core.prior.Uniform(name='a_1', minimum=0.0, maximum=0.99, latex_label='$a_1$')
 #a_2 = bilby.core.prior.Uniform(name='a_2', minimum=0.0, maximum=0.99, latex_label='$a_2$')
 tilt_1 = Sine(name='tilt_1', boundary='reflective')
