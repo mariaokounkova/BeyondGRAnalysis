@@ -103,7 +103,7 @@ logger.info("Set up likelihood")
 ## TODO: Get injection parameters in as arg injection_parameters=injection_parameters
 result = bilby.run_sampler(
     likelihood=likelihood, priors=prior, sampler='dynesty', npoints=1000,
-    outdir=outdir, label=label, npool=24)
+    outdir=outdir, label=label, npool=12)
 logger.info("Ran sampler")
 
 result.plot_corner()
