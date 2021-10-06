@@ -81,7 +81,7 @@ sampling_frequency = 2048.  # same at which the data is stored
 
 # Set up waveform arguments
 waveform_arguments = dict(waveform_approximant='NRSur7dq4',
-                          minimum_frequency = 35.9, 
+                          minimum_frequency = 25.0, #35.9, 
                           maximum_frequency = 2048.0)
 logger.info("Set up waveform arguments")
 
