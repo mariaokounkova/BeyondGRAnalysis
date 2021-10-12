@@ -2,10 +2,10 @@ BilbyPE/NR*
 BilbyPE/Surrogate*
 BilbyPE/dCS*
 BilbyPE/Test*
+BilbyPE/Temp*
 BilbyPE/NoTilt*
+BilbyPE/AllSearch*
 Waveforms/*
-Frames
-PreviousWaveforms
 .ipynb_checkpoints
 *.pdf
 *.gwf
