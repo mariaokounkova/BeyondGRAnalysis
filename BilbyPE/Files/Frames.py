@@ -19,7 +19,7 @@ bilby.core.utils.setup_logger(outdir=outdir, label=label)
 np.random.seed(88170235)
 
 # Interferometer injections
-interferometer_names = ['H1', 'L1']
+interferometer_names = ['H1', 'L1','V1']
 ifo_list = bilby.gw.detector.InterferometerList([])
 
 ######################
@@ -80,8 +80,11 @@ logger.info("Set up priors")
 sampling_frequency = 2048.  # same at which the data is stored 
 
 # Set up waveform arguments
-waveform_arguments = dict(waveform_approximant='NRSur7dq4',
-                          minimum_frequency = 30.0, #35.9, 
+# NRSur7dq4: Surrogate model
+# SEOBNRv4PHM: EOB waveform from GWTC-3 analysis
+# IMRPhenomXPHM: Phenom waveform from GWTC-3 analysis
+waveform_arguments = dict(waveform_approximant='SEOBNRv4PHM',
+                          minimum_frequency = 25.0,
                           maximum_frequency = 2048.0)
 logger.info("Set up waveform arguments")
 
@@ -102,8 +105,8 @@ logger.info("Set up likelihood")
 # Run sampler 
 ## TODO: Get injection parameters in as arg injection_parameters=injection_parameters
 result = bilby.run_sampler(
-    likelihood=likelihood, priors=prior, sampler='dynesty', npoints=1000,
-    outdir=outdir, label=label, npool=12)
+    likelihood=likelihood, priors=prior, sampler='dynesty', npoints=1080,
+    outdir=outdir, label=label, npool=18)
 logger.info("Ran sampler")
 
 result.plot_corner()

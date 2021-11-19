@@ -5,6 +5,8 @@ BilbyPE/Test*
 BilbyPE/Temp*
 BilbyPE/NoTilt*
 BilbyPE/AllSearch*
+BilbyPE/SEOB*
+BilbyPE/Summary*
 Waveforms/*
 .ipynb_checkpoints
 *.pdf
