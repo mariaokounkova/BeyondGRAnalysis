@@ -83,7 +83,7 @@ sampling_frequency = 2048.  # same at which the data is stored
 # NRSur7dq4: Surrogate model
 # SEOBNRv4PHM: EOB waveform from GWTC-3 analysis
 # IMRPhenomXPHM: Phenom waveform from GWTC-3 analysis
-waveform_arguments = dict(waveform_approximant='SEOBNRv4PHM',
+waveform_arguments = dict(waveform_approximant='IMRPhenomXPHM',
                           minimum_frequency = 25.0,
                           maximum_frequency = 2048.0)
 logger.info("Set up waveform arguments")
