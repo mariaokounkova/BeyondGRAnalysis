@@ -1,11 +1,9 @@
 BilbyPE/NR*
 BilbyPE/Surrogate*
 BilbyPE/dCS*
-BilbyPE/Test*
-BilbyPE/Temp*
-BilbyPE/NoTilt*
 BilbyPE/AllSearch*
 BilbyPE/SEOB*
+BilbyPE/PHENOM*
 BilbyPE/Summary*
 Waveforms/*
 .ipynb_checkpoints
