@@ -85,6 +85,7 @@ sampling_frequency = 2048.  # same at which the data is stored
 # IMRPhenomXPHM: Phenom waveform from GWTC-3 analysis
 waveform_arguments = dict(waveform_approximant='IMRPhenomXPHM',
                           minimum_frequency = 25.0,
+                          reference_frequency = 30.0,
                           maximum_frequency = 2048.0)
 logger.info("Set up waveform arguments")
 
