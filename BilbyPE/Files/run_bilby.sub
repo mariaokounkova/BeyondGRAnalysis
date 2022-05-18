@@ -3,6 +3,7 @@ executable = /home/maria.okounkova/BeyondGRAnalysis/BilbyPE/FRAMES_DIR/run_bilby
 notification = error
 accounting_group = ligo.dev.o3.burst.paramest.bayeswave
 RequestMemory = 4000
+RequestDisk = 10000000
 RequestCpus = 12
 log = /home/maria.okounkova/BeyondGRAnalysis/BilbyPE/FRAMES_DIR/Logs/run_bilby.log
 output = /home/maria.okounkova/BeyondGRAnalysis/BilbyPE/FRAMES_DIR/Logs/run_bilby.out
