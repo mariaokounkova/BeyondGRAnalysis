@@ -4,6 +4,6 @@ Performing a similar analysis takes a number of steps:
 
 1. Generate your own beyond-GR waveforms ([instructions](https://github.com/mariaokounkova/BeyondGRAnalysis/wiki/Generating-beyond-GR-waveforms-and-frames-files))
 2. Perform a morphology-independent Bayeswave analysis 
-3. Perform a template-based Bilby analysis
+3. Perform a template-based Bilby analysis ([instructions](https://github.com/mariaokounkova/BeyondGRAnalysis/wiki/Running-a-Bilby-template-based-analysis))
 4. Jointly post-process the analysis data
 
