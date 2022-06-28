@@ -2,7 +2,7 @@ Hello and welcome to the code behind the study "Gravitational wave inference on 
 
 Performing a similar analysis takes a number of steps:
 
-1. Generate your own beyond-GR waveforms
+1. Generate your own beyond-GR waveforms ([instructions](https://github.com/mariaokounkova/BeyondGRAnalysis/wiki/Generating-beyond-GR-waveforms-and-frames-files))
 2. Perform a morphology-independent Bayeswave analysis 
 3. Perform a template-based Bilby analysis
 4. Jointly post-process the analysis data
