@@ -9,10 +9,11 @@ import numpy as np
 #### Setup ###########
 ######################
 
-root_dir = '/home/maria.okounkova/BeyondGRAnalysis/BilbyPE/FRAMES_DIR/'
+## Edit this with the path to your BeyondGRAnalysis repository
+root_dir = '/home/maria.okounkova/BeyondGRAnalysis/BilbyBayeswaveAnalysis/FRAMES_DIR/'
 logger = bilby.core.utils.logger
 outdir = root_dir + 'outdir'
-label = 'fast_tutorial' 
+label = 'beyondgr' 
 bilby.core.utils.setup_logger(outdir=outdir, label=label)
 
 # Set up a random seed for result reproducibility.  This is optional!
