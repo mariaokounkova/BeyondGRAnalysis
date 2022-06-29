@@ -1,12 +1,5 @@
-BilbyPE/NR*
-BilbyPE/Surrogate*
-BilbyPE/dCS*
-BilbyPE/AllSearch*
-BilbyPE/SEOB*
-BilbyPE/PHENOM*
-BilbyPE/Summary*
+BilbyBayeswaveAnalysis/dCS*
 Waveforms/*
 .ipynb_checkpoints
 *.pdf
-*.gwf
 __pycache__
