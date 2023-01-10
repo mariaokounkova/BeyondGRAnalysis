@@ -1,4 +1,4 @@
-Hello and welcome to the code behind the study "Gravitational wave inference on a numerical-relativity simulation of a black hole merger beyond general relativity"
+The code behind the study "Gravitational wave inference on a numerical-relativity simulation of a black hole merger beyond general relativity"
 
 Please see the [wiki](https://github.com/mariaokounkova/BeyondGRAnalysis/wiki) for documentation and instructions. Performing a similar analysis takes a number of steps:
 
